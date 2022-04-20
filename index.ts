@@ -1,5 +1,5 @@
 import express, { Request, Response } from 'express';
-import { fetchFights } from './helperFunctions';
+import { fetchFights } from './helper-functions';
 
 const app = express();
 
