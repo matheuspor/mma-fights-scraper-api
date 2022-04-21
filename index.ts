@@ -1,15 +1,14 @@
-import express, { Request, Response } from 'express';
+import express from 'express';
 import connectToDatabase from './models/connection';
-import { fetchFights } from './helper-functions';
+import fightsRoutes from './routes/fights-routes';
+import { populateDatabase } from './services/fight-service';
 
 const app = express();
 
 app.listen(3000, async () => {
   connectToDatabase()
+  await populateDatabase()
   console.log('Server is running on port 3000')
 });
 
-app.get('/fights', async (req: Request, res: Response) => {
-  const fights = await fetchFights()
-  return res.status(200).send(fights)
-})
+app.use('/api', fightsRoutes)

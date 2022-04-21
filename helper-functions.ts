@@ -2,14 +2,14 @@ import axios from 'axios';
 import * as cheerio from "cheerio";
 import { Fight } from './interfaces';
 
-const url = 'https://www.ufc.com/events';
+const url = 'https://www.ufc.com.br/events';
 const mainUrl = 'https://www.ufc.com';
 
 export const fetchFights = () => axios(url)
   .then(response => {
     const html = response.data
     const $ = cheerio.load(html)
-    const matches: Fight[] = []
+    const fights: Fight[] = []
     $('.c-card-event--result__info', html).each((index, element) => {
       const fightDetails = $(element).children('.c-card-event--result__date').find('a')
       const dateString = $(fightDetails).text().split(' ')[0]
@@ -18,7 +18,8 @@ export const fetchFights = () => axios(url)
       const title = $(element).children('.c-card-event--result__headline').text()
       const url = mainUrl + $(fightDetails).attr('href')
       const fightNight = url.includes('fight-night')
-      if (matches.length < 4) matches.push({
+      
+      if (fights.length < 4) fights.push({
         title,
         url,
         date,
@@ -26,7 +27,7 @@ export const fetchFights = () => axios(url)
         fightNight
       })
     })
-    return matches
+    return fights
   })
 
 // const fillFightCards = async () => {
