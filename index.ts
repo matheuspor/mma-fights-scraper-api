@@ -1,7 +1,7 @@
 import express from 'express';
 import connectToDatabase from './models/connection';
 import fightsRoutes from './routes/fights-routes';
-import { populateDatabase } from './services/fightService';
+import { populateDatabase } from './services/fight-service';
 
 const app = express();
 

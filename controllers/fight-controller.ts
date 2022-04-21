@@ -1,5 +1,5 @@
 import { Request, Response } from "express"
-import { getFights } from "../services/fightService"
+import { getFights } from "../services/fight-service"
 
 const getAll = async (req: Request, res: Response) => {
     const fights = await getFights()

@@ -1,5 +1,5 @@
 import { fetchFights } from "../helper-functions"
-import Fight from "../models/Fight"
+import Fight from "../models/fight"
 
   export const populateDatabase = async () => {
     const fights = await fetchFights()
