@@ -1,9 +1,8 @@
 import axios from 'axios';
 import * as cheerio from "cheerio";
 import { Fight } from './interfaces';
-import fightService from './services/fightService';
 
-const url = 'https://www.ufc.com/events';
+const url = 'https://www.ufc.com.br/events';
 const mainUrl = 'https://www.ufc.com';
 
 export const fetchFights = () => axios(url)
@@ -27,7 +26,6 @@ export const fetchFights = () => axios(url)
         time,
         fightNight
       })
-      fightService.getFights().then((savedFights) => console.log(savedFights));
     })
     return fights
   })
