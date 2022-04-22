@@ -1,14 +1,14 @@
 import { Schema, model } from 'mongoose';
-import { Fight } from '../interfaces'
+import { IFight } from '../interfaces';
 
-const FightSchema = new Schema<Fight>({
+const FightSchema = new Schema<IFight>({
   title: String,
   url: String,
   date: Date,
   time: String,
-  fightNight: Boolean
-})
+  fightNight: Boolean,
+});
 
-const Fight = model<Fight>('Fight', FightSchema);
+const Fight = model<IFight>('Fight', FightSchema);
 
 export default Fight;
