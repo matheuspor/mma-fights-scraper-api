@@ -12,4 +12,4 @@ export const populateDatabase = async () => {
   }
 };
   
-export const getFights = async () => Fight.find().select({ _id: 0, __v: 0 });
+export const getFights = async () => Fight.find({}, { _id: 0, _v: 0 });
