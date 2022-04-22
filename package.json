@@ -2,9 +2,9 @@
   "name": "web-scraper-ufc",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "start": "nodemon index.ts",
+    "start": "nodemon app.ts",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "test": "mocha -r ts-node/register tests/**/*.test.ts --exit -t 60000"
   },
