@@ -1,6 +1,6 @@
 import axios from 'axios';
 import * as cheerio from 'cheerio';
-import { IFight } from './interfaces';
+import { IFight } from '../interfaces';
 
 const eventsUrl = 'https://www.ufc.com.br/events';
 const mainUrl = 'https://www.ufc.com';
