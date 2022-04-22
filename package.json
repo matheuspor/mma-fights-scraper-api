@@ -6,7 +6,8 @@
   "scripts": {
     "start": "nodemon app.ts",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
-    "test": "mocha -r ts-node/register tests/**/*.test.ts --exit -t 60000"
+    "test": "mocha -r ts-node/register tests/**/*.test.ts --exit -t 60000",
+    "coverage": "nyc npm run test"
   },
   "author": "",
   "license": "ISC",
@@ -39,6 +40,7 @@
     "eslint-plugin-mocha": "9.0.0",
     "mocha": "9.2.1",
     "nodemon": "^2.0.15",
+    "nyc": "^15.1.0",
     "sinon": "13.0.1",
     "ts-node": "^10.4.0",
     "ts-node-dev": "^1.1.8",
