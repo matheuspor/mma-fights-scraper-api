@@ -1,0 +1,4 @@
+node_modules
+.gitpod.yml
+.env
+.nyc_output

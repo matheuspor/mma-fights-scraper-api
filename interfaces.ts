@@ -1,4 +1,4 @@
-export interface Fight {
+export interface IFight {
   title: string,
   url: string,
   date: Date,
