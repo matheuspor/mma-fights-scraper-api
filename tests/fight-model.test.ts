@@ -12,32 +12,21 @@ describe('Tests Fight Model', () => {
     time: 'fightTime',
     fightNight: true,
   };
+  beforeEach(() => {
+    Sinon.restore();
+  });
 
   describe('Testing delete many method', () => {
-    before(() => {
-      Sinon.stub(mongoose.Model, 'deleteMany').resolves();
-    });
-
-    after(() => {
-      Sinon.restore();
-    });
-
     it('Test method is called inside model', async () => {
+      Sinon.stub(mongoose.Model, 'deleteMany').resolves();
       const model = await Fight.deleteMany();
       expect(model).to.be.equal(undefined);
     });
   });
 
   describe('Testing insert many method', () => {
-    before(() => {
-      Sinon.stub(mongoose.Model, 'insertMany').resolves([fightMock]);
-    });
-
-    after(() => {
-      Sinon.restore();
-    });
-
     it('Test method is called inside model', async () => {
+      Sinon.stub(mongoose.Model, 'insertMany').resolves([fightMock]);
       const model = await Fight.insertMany([fightMock]);
       expect(model).to.be.deep.equal([fightMock]);
     });
