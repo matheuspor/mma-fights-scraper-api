@@ -5,7 +5,7 @@ import { IFight } from '../interfaces';
 const eventsUrl = 'https://www.ufc.com.br/events';
 const mainUrl = 'https://www.ufc.com';
 
-export const fetchPageHtml = (url: string) => axios(url)
+export const fetchPageHtml = (url: string) => axios.get(url)
   .then((response) => response.data);
 
 export const fetchFights = async () => {
