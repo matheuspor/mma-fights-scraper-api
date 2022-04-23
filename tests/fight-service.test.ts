@@ -41,7 +41,7 @@ describe('Tests Fight Service', () => {
     it('Test getAll returns an array of fights', async () => {
       Sinon.stub(mongoose.Model, 'find').resolves([fightMock]);
       const model = await getAll();
-      expect(model).to.be.an('object');
+      expect(model).to.be.an('array');
       expect(model).to.be.deep.equal([fightMock]);
     });
   });
