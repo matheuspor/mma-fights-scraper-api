@@ -7,7 +7,7 @@ import { populateDatabase } from './services/fight-service';
 const app = express();
 
 app.listen(3000, async () => {
-  connectToDatabase();
+  connectToDatabase()
   await populateDatabase();
   console.log('Server is running on port 3000');
 });
