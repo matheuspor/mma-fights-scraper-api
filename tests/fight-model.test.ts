@@ -26,7 +26,7 @@ describe('Tests Fight Model', () => {
 
   describe('Testing insert many method', () => {
     it('Test method is called inside model', async () => {
-      Sinon.stub(mongoose.Model, 'insertMany').resolves([fightMock]);
+      Sinon.stub(mongoose.Model, 'insertMany').resolves([fightMock])
       const model = await Fight.insertMany([fightMock]);
       expect(model).to.be.deep.equal([fightMock]);
     });
