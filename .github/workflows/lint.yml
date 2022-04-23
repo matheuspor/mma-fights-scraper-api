@@ -20,3 +20,6 @@ jobs: # list of things to do
 
       - name: Code Linting
         run: npm run lint
+
+      - name: Run Test Suite
+        run: npm run test
