@@ -1,5 +1,6 @@
 import { fetchFights } from '../utils/helper-functions';
 import Fight from '../models/fight-model';
+import { IFight } from '../interfaces';
 
 export const populateDatabase = async () => {
   const fights = await fetchFights();    
@@ -7,4 +8,4 @@ export const populateDatabase = async () => {
   await Fight.insertMany(fights);
 };
   
-export const getAll = async () => Fight.find({}, { _id: 0, _v: 0 });
+export const getAll = async (): Promise<IFight[]> => Fight.find({}, { _id: 0, __v: 0 });

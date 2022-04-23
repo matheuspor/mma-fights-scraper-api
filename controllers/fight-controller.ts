@@ -1,9 +1,8 @@
 import { Request, Response } from 'express';
-import { getFights } from '../services/fight-service';
+import * as fightService from '../services/fight-service';
 
-const getAll = async (req: Request, res: Response) => {
-  const fights = await getFights();
-  return res.status(200).send(fights);    
+// eslint-disable-next-line import/prefer-default-export
+export const getAll = async (req: Request, res: Response) => {
+  const fights = await fightService.getAll();
+  return res.status(200).json(fights);    
 };
-
-export default getAll;

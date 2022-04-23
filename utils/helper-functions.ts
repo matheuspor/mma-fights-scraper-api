@@ -14,7 +14,7 @@ export const fetchFights = () => axios(eventsUrl)
       const fightDetails = $(element).children('.c-card-event--result__date').find('a');
       const dateString = $(fightDetails).text().split(' ')[0];
       const date = new Date(`${dateString.split('.').slice(0, 2).reverse().join('.')}.${dateString.split('.').pop()}`);
-      const time = `${$(fightDetails).text().split(' ')[2]} GMT ${$(fightDetails).text().split(' ')[3]}`;
+      const time = `${$(fightDetails).text().split(' ')[2]} ${$(fightDetails).text().split(' ')[3]}`;
       const title = $(element).children('.c-card-event--result__headline').text();
       const url = mainUrl + $(fightDetails).attr('href');
       const fightNight = url.includes('fight-night');
