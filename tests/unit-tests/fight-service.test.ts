@@ -1,9 +1,9 @@
 import { expect } from 'chai';
 import mongoose from 'mongoose';
 import Sinon from 'sinon';
-import { IFight } from '../interfaces';
-import { getAll, populateDatabase } from '../services/fight-service';
-import * as helperFunctions from '../utils/helper-functions';
+import { IFight } from '../../interfaces';
+import { getAll, populateDatabase } from '../../services/fight-service';
+import * as helperFunctions from '../../utils/helper-functions';
 
 describe('Tests Fight Service', () => {
   const fightMock: IFight = {

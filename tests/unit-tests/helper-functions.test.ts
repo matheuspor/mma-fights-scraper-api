@@ -2,7 +2,7 @@ import axios from 'axios';
 import { expect } from 'chai';
 import { readFileSync } from 'fs';
 import Sinon = require('sinon');
-import * as helperFunction from '../utils/helper-functions';
+import * as helperFunction from '../../utils/helper-functions';
 
 const htmlPageMock = JSON.parse(readFileSync('./tests/html-page-mock.json', 'utf8'));
 const mockFights = [

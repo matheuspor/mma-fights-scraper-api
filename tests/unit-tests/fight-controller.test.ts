@@ -1,9 +1,9 @@
 import { expect } from 'chai';
 import { Request, Response } from 'express';
 import Sinon = require('sinon');
-import { IFight } from '../interfaces';
-import * as fightService from '../services/fight-service';
-import * as fightController from '../controllers/fight-controller';
+import { IFight } from '../../interfaces';
+import * as fightService from '../../services/fight-service';
+import * as fightController from '../../controllers/fight-controller';
 
 describe('Tests Fight Controller', () => {
   const fightMock: IFight = {
