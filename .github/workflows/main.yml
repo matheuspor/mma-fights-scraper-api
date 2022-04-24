@@ -24,7 +24,7 @@ jobs:
           npm run lint
 
   test:
-    name: Test
+    name: Tests
     needs: lint
     runs-on: ubuntu-20.04
 

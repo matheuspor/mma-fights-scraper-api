@@ -13,3 +13,5 @@ app.listen(3000, async () => {
 });
 
 app.use('/api', fightsRoutes);
+
+export default app;
