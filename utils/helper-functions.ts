@@ -1,6 +1,6 @@
 import axios from 'axios';
 import * as cheerio from 'cheerio';
-import { IFight } from '../interfaces';
+import { BlueCornerCard, FightCard, IFight, RedCornerCard } from '../interfaces';
 
 const eventsUrl = 'https://www.ufc.com.br/events';
 const mainUrl = 'https://www.ufc.com';
@@ -20,7 +20,7 @@ export const fetchFights = async () => {
     const title = $(element).children('.c-card-event--result__headline').text();
     const url = mainUrl + $(fightDetails).attr('href');
     const fightNight = url.includes('fight-night');
-      
+
     if (fights.length < 4) {
       fights.push({
         title,
@@ -34,20 +34,39 @@ export const fetchFights = async () => {
   return fights;
 };
 
-export const fillFightCards = async () => undefined;
-// {
-// const fights = await fetchFights() as Fight[];
-// const fightCards = [];
-// fights.forEach(({ url, title }) => axios(url).then((response) => {
-//  const FightCard = {
-//      title,
-//      card: [],
-//    } as FightCard;
-//    const html = response.data;
-// const $ = cheerio.load(html);
-//    $('.c-listing-fight__corner-name', html).each((index, element) => {
-// const fighterName = $(element).text();
-//  console.log(fighterName);
-//  });
-//  }));
-// };
+export const fetchFightsCard = async (fights: IFight[]) => {
+  const fightCard: FightCard[] = [];
+  const redCornerFighter: RedCornerCard[] = [];
+  const blueCornerFighter: BlueCornerCard[] = [];
+  await Promise.all(fights.map(async ({ url, title }) => {
+    const html = await fetchPageHtml(url);
+    const $ = cheerio.load(html);
+
+    // Reads page left side scraping the red corner fighters data (name and photo)
+    $('.c-listing-fight__corner--red', html).each((index, element) => {
+      const fighterFirstName = $(element).find('div').children('.c-listing-fight__corner-given-name').text();
+      const fighterFamilyName = $(element).find('div').children('.c-listing-fight__corner-family-name').text();
+      const fighterPhoto = $(element).find('img').attr('src');
+      redCornerFighter.push({ redCornerName: `${fighterFirstName} ${fighterFamilyName}`, redCornerPhoto: fighterPhoto });
+    });
+
+    // Reads page right side scraping the blue corner fighters data (name and photo)
+    $('.c-listing-fight__corner--blue', html).each((index, element) => {
+      const fighterFirstName = $(element).find('div').children('.c-listing-fight__corner-given-name').text();
+      const fighterFamilyName = $(element).find('div').children('.c-listing-fight__corner-family-name').text();
+      const fighterPhoto = $(element).find('img').attr('src');
+      blueCornerFighter.push({ blueCornerName: `${fighterFirstName} ${fighterFamilyName}`, blueCornerPhoto: fighterPhoto });
+    });
+
+    // Merge both arrays of fighters data
+    const mergedArrays = redCornerFighter.map(({ redCornerName, redCornerPhoto }, index) => {
+      const { blueCornerName } = blueCornerFighter[index];
+      const { blueCornerPhoto } = blueCornerFighter[index];
+      return { redCornerName, redCornerPhoto, blueCornerName, blueCornerPhoto };
+    });
+
+    // Push new object with the title fight and a card array with all fights in the same day 
+    fightCard.push({ title, card: mergedArrays });
+  }));
+  return fightCard;
+};

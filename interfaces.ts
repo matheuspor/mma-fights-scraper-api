@@ -8,5 +8,17 @@ export interface IFight {
 
 export interface FightCard {
   title: string,
-  card: unknown[]
+  card: Card[]
 }
+
+export interface RedCornerCard {
+  redCornerName: string,
+  redCornerPhoto?: string
+}
+
+export interface BlueCornerCard {
+  blueCornerName: string,
+  blueCornerPhoto?: string
+}
+
+interface Card extends RedCornerCard, BlueCornerCard { }
