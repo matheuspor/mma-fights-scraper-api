@@ -1,6 +1,6 @@
 import axios from 'axios';
 import * as cheerio from 'cheerio';
-import { FightCard, IFight } from '../interfaces';
+import { Card, FightCard, IFight } from '../interfaces';
 
 const eventsUrl = 'https://www.ufc.com.br/events';
 const mainUrl = 'https://www.ufc.com';
@@ -38,8 +38,8 @@ export const fetchFightsCard = async (fights: IFight[]) => {
   const fightCard: FightCard[] = [];
   await Promise.all(fights.map(async ({ url, title }) => {
     const html = await fetchPageHtml(url);
-    let redCornerFighters: any[] = [];
-    let blueCornerFighters: any[] = []
+    const redCornerFighters: Card[] = [];
+    const blueCornerFighters: Card[] = [];
     const $ = cheerio.load(html);
     $('.c-listing-fight__corner--red', html).each((index, element) => {
       const fighterFirstName = $(element).find('div').children('.c-listing-fight__corner-given-name').text();
@@ -54,10 +54,10 @@ export const fetchFightsCard = async (fights: IFight[]) => {
       blueCornerFighters.push({ blueCornerName: `${fighterFirstName} ${fighterFamilyName}`, blueCornerPhoto: fighterPhoto });
     });
     const mergedArrays = redCornerFighters.map(({ redCornerName, redCornerPhoto }, index) => {
-      const blueCornerName = blueCornerFighters[index].blueCornerName;
-      const blueCornerPhoto = blueCornerFighters[index].blueCornerPhoto;
+      const { blueCornerName } = blueCornerFighters[index];
+      const { blueCornerPhoto } = blueCornerFighters[index];
       return { redCornerName, redCornerPhoto, blueCornerName, blueCornerPhoto };
-    })
+    });
     fightCard.push({ title, card: mergedArrays });
   }));
   return fightCard;

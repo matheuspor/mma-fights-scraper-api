@@ -12,8 +12,8 @@ export interface FightCard {
 }
 
 export interface Card {
-  redCornerName: string,
-  redCornerPhoto: string,
-  blueCornerName: string,
-  blueCornerPhoto: string
+  redCornerName?: string,
+  redCornerPhoto?: string,
+  blueCornerName?: string,
+  blueCornerPhoto?: string
 }
