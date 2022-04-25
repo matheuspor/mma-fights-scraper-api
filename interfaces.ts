@@ -11,9 +11,14 @@ export interface FightCard {
   card: Card[]
 }
 
-export interface Card {
-  redCornerName?: string,
-  redCornerPhoto?: string,
-  blueCornerName?: string,
+export interface RedCornerCard {
+  redCornerName: string,
+  redCornerPhoto?: string
+}
+
+export interface BlueCornerCard {
+  blueCornerName: string,
   blueCornerPhoto?: string
 }
+
+interface Card extends RedCornerCard, BlueCornerCard { }

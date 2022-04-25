@@ -1,6 +1,6 @@
 import axios from 'axios';
 import * as cheerio from 'cheerio';
-import { Card, FightCard, IFight } from '../interfaces';
+import { BlueCornerCard, FightCard, IFight, RedCornerCard } from '../interfaces';
 
 const eventsUrl = 'https://www.ufc.com.br/events';
 const mainUrl = 'https://www.ufc.com';
@@ -38,8 +38,8 @@ export const fetchFightsCard = async (fights: IFight[]) => {
   const fightCard: FightCard[] = [];
   await Promise.all(fights.map(async ({ url, title }) => {
     const html = await fetchPageHtml(url);
-    const redCornerFighters: Card[] = [];
-    const blueCornerFighters: Card[] = [];
+    const redCornerFighters: RedCornerCard[] = [];
+    const blueCornerFighters: BlueCornerCard[] = [];
     const $ = cheerio.load(html);
     $('.c-listing-fight__corner--red', html).each((index, element) => {
       const fighterFirstName = $(element).find('div').children('.c-listing-fight__corner-given-name').text();
