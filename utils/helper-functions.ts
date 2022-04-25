@@ -36,28 +36,36 @@ export const fetchFights = async () => {
 
 export const fetchFightsCard = async (fights: IFight[]) => {
   const fightCard: FightCard[] = [];
+  const redCornerFighter: RedCornerCard[] = [];
+  const blueCornerFighter: BlueCornerCard[] = [];
   await Promise.all(fights.map(async ({ url, title }) => {
     const html = await fetchPageHtml(url);
-    const redCornerFighters: RedCornerCard[] = [];
-    const blueCornerFighters: BlueCornerCard[] = [];
     const $ = cheerio.load(html);
+
+    // Reads page left side scraping the red corner fighters data (name and photo)
     $('.c-listing-fight__corner--red', html).each((index, element) => {
       const fighterFirstName = $(element).find('div').children('.c-listing-fight__corner-given-name').text();
       const fighterFamilyName = $(element).find('div').children('.c-listing-fight__corner-family-name').text();
       const fighterPhoto = $(element).find('img').attr('src');
-      redCornerFighters.push({ redCornerName: `${fighterFirstName} ${fighterFamilyName}`, redCornerPhoto: fighterPhoto });
+      redCornerFighter.push({ redCornerName: `${fighterFirstName} ${fighterFamilyName}`, redCornerPhoto: fighterPhoto });
     });
+
+    // Reads page right side scraping the blue corner fighters data (name and photo)
     $('.c-listing-fight__corner--blue', html).each((index, element) => {
       const fighterFirstName = $(element).find('div').children('.c-listing-fight__corner-given-name').text();
       const fighterFamilyName = $(element).find('div').children('.c-listing-fight__corner-family-name').text();
       const fighterPhoto = $(element).find('img').attr('src');
-      blueCornerFighters.push({ blueCornerName: `${fighterFirstName} ${fighterFamilyName}`, blueCornerPhoto: fighterPhoto });
+      blueCornerFighter.push({ blueCornerName: `${fighterFirstName} ${fighterFamilyName}`, blueCornerPhoto: fighterPhoto });
     });
-    const mergedArrays = redCornerFighters.map(({ redCornerName, redCornerPhoto }, index) => {
-      const { blueCornerName } = blueCornerFighters[index];
-      const { blueCornerPhoto } = blueCornerFighters[index];
+
+    // Merge both arrays of fighters data
+    const mergedArrays = redCornerFighter.map(({ redCornerName, redCornerPhoto }, index) => {
+      const { blueCornerName } = blueCornerFighter[index];
+      const { blueCornerPhoto } = blueCornerFighter[index];
       return { redCornerName, redCornerPhoto, blueCornerName, blueCornerPhoto };
     });
+
+    // Push new object with the title fight and a card array with all fights in the same day 
     fightCard.push({ title, card: mergedArrays });
   }));
   return fightCard;
