@@ -1,7 +1,9 @@
 import mongoose from 'mongoose';
 
+console.log(process.env.MONGO_DB_URL);
+
 const connectToDatabase = (
-  mongoDatabaseURI = process.env.MONGO_DB_URL || 'mongodb://mongodb:27017/mma-fights',
+  mongoDatabaseURI = process.env.MONGO_DB_URL || 'mongodb://localhost:27017/mma-fights',
 ) => mongoose.connect(mongoDatabaseURI);
 
 export default connectToDatabase;
