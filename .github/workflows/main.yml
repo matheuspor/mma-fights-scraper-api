@@ -36,9 +36,16 @@ jobs:
         with:
           node-version: 14
           cache: npm
+      
+      - name: Start MongoDB
+        uses: supercharge/mongodb-github-action@1.7.0
+        with:
+          mongodb-version: 4.2
+
 
       - name: Install Dependencies
-        run: npm ci
+        run: 
+          npm ci
           npm install
 
       - name: Run Tests
