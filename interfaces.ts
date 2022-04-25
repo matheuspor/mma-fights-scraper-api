@@ -21,4 +21,4 @@ export interface BlueCornerCard {
   blueCornerPhoto?: string
 }
 
-interface Card extends RedCornerCard, BlueCornerCard { }
+export interface Card extends RedCornerCard, BlueCornerCard { }
