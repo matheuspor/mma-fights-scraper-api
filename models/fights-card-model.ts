@@ -1,8 +1,10 @@
-import { Schema, model } from 'mongoose';
+import { Schema, model, Document } from 'mongoose';
 import { FightCard } from '../interfaces';
 
-const FightsCardSchema = new Schema<FightCard>({
-  title: String,
+interface FightDocument extends FightCard, Document { }
+
+const FightsCardSchema = new Schema<FightDocument>({
+  fight: { type: Schema.Types.ObjectId, ref: 'Fight' },
   card: Array,
 });
 

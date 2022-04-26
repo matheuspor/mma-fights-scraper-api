@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { getAll } from '../controllers/fight-controller';
+import { getAll } from '../controllers/fights-card-controller';
 
 const fightsCardRoutes = Router();
 

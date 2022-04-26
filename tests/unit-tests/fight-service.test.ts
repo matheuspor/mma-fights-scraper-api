@@ -2,8 +2,7 @@ import { expect } from 'chai';
 import mongoose from 'mongoose';
 import Sinon from 'sinon';
 import { IFight } from '../../interfaces';
-import { getAll, populateDatabase } from '../../services/fight-service';
-import * as helperFunctions from '../../utils/helper-functions';
+import { getAll } from '../../services/fight-service';
 
 describe('Tests Fight Service', () => {
   const fightMock: IFight = {
@@ -15,26 +14,6 @@ describe('Tests Fight Service', () => {
   };
   beforeEach(() => {
     Sinon.restore();
-  });
-
-  describe('Tests populateDatabase function', () => {
-    beforeEach(() => {
-      Sinon.stub(helperFunctions, 'fetchFights').resolves([fightMock]);
-    });
-
-    it('Tests model.deleteMany() is called', async () => {    
-      Sinon.stub(mongoose.Model, 'insertMany').resolves([fightMock]);
-      const deleteStub = Sinon.stub(mongoose.Model, 'deleteMany').resolves();
-      await populateDatabase();
-      Sinon.assert.calledOnce(deleteStub);
-    });
-
-    it('Tests model.insertMany is called', async () => {    
-      Sinon.stub(mongoose.Model, 'deleteMany').resolves();
-      const insertStub = Sinon.stub(mongoose.Model, 'insertMany').resolves([fightMock]);        
-      await populateDatabase();
-      Sinon.assert.calledOnceWithMatch(insertStub, [fightMock]);
-    });
   });
 
   describe('Tests getAll function', () => {
