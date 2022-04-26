@@ -1,4 +1,7 @@
+import { ObjectId } from 'mongoose';
+
 export interface IFight {
+  _id?: ObjectId,
   title: string,
   url: string,
   date: Date,
@@ -7,7 +10,7 @@ export interface IFight {
 }
 
 export interface FightCard {
-  title: string,
+  fight: ObjectId | any,
   card: Card[]
 }
 
@@ -21,4 +24,4 @@ export interface BlueCornerCard {
   blueCornerPhoto?: string
 }
 
-interface Card extends RedCornerCard, BlueCornerCard { }
+export interface Card extends RedCornerCard, BlueCornerCard { }

@@ -36,9 +36,9 @@ export const fetchFights = async () => {
 
 export const fetchFightsCard = async (fights: IFight[]) => {
   const fightCard: FightCard[] = [];
-  const redCornerFighter: RedCornerCard[] = [];
-  const blueCornerFighter: BlueCornerCard[] = [];
-  await Promise.all(fights.map(async ({ url, title }) => {
+  await Promise.all(fights.map(async ({ url, _id }) => {
+    const redCornerFighter: RedCornerCard[] = [];
+    const blueCornerFighter: BlueCornerCard[] = [];
     const html = await fetchPageHtml(url);
     const $ = cheerio.load(html);
 
@@ -66,7 +66,7 @@ export const fetchFightsCard = async (fights: IFight[]) => {
     });
 
     // Push new object with the title fight and a card array with all fights in the same day 
-    fightCard.push({ title, card: mergedArrays });
+    fightCard.push({ fight: _id, card: mergedArrays });
   }));
   return fightCard;
 };
