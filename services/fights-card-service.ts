@@ -7,4 +7,4 @@ export const create = (fights: FightCard[]): Promise<FightCard[]> => (
   FightsCard.create(fights)
 );
 
-export const getAll = async (): Promise<FightCard[]> => FightsCard.find({}, { _id: 0, __v: 0 }).populate('fight');
+export const getAll = async (): Promise<FightCard[]> => FightsCard.find({}, { _id: 0, __v: 0 }).populate('fight', { _id: 0, __v: 0 });
