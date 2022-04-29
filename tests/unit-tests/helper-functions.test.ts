@@ -4,7 +4,7 @@ import { readFileSync } from 'fs';
 import Sinon = require('sinon');
 import mongoose from 'mongoose';
 import { FightCard, IFight } from '../../interfaces';
-import * as helperFunction from '../../utils/helper-functions';
+import * as helperFunction from '../../scraper/scraper-functions';
 import { populateDatabase } from '../../controllers/middlewares/populate-database';
 import * as FightService from '../../services/fight-service';
 import * as FightsCardService from '../../services/fights-card-service';

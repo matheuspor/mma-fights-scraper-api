@@ -1,4 +1,4 @@
-import { fetchFights, fetchFightsCard } from '../../utils/helper-functions';
+import { fetchFights, fetchFightsCard } from '../../scraper/scraper-functions';
 import * as FightService from '../../services/fight-service';
 import * as FightsCardService from '../../services/fights-card-service';
 
