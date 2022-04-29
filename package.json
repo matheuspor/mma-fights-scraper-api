@@ -6,7 +6,7 @@
   "scripts": {
     "start": "nodemon app.ts",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
-    "test": "mocha -r ts-node/register tests/**/*.test.ts --exit -t 60000",
+    "test": "mocha -r ts-node/register \"tests/**/*.test.ts\" --exit -t 60000",
     "test:coverage": "nyc npm run test"
   },
   "author": "",
