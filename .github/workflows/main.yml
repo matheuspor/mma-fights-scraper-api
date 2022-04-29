@@ -1,5 +1,11 @@
 name: Node.js Tests
-on: [pull_request, push]
+on: 
+  push:
+   branches: [main]
+
+  pull_request:
+   branches: '*' 
+ 
 jobs:
   lint:
     name: Lint
