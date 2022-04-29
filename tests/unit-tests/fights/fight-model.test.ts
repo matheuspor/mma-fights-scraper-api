@@ -31,4 +31,13 @@ describe('Tests Fight Model', () => {
       expect(model).to.be.deep.equal([fightMock]);
     });
   });
+
+  describe('Testing find method', () => {
+    it('Test method is called inside model', async () => {
+      const findStub = Sinon.stub(mongoose.Model, 'find').resolves([fightMock]);
+      const model = await Fight.find({}, { _id: 0, __v: 0 });
+      expect(model).to.be.deep.equal([fightMock]);
+      Sinon.assert.called(findStub);
+    });
+  });
 });
