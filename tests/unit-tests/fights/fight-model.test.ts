@@ -1,8 +1,8 @@
 import { expect } from 'chai';
 import mongoose from 'mongoose';
 import Sinon from 'sinon';
-import { IFight } from '../../interfaces';
-import Fight from '../../models/fight-model';
+import { IFight } from '../../../interfaces';
+import Fight from '../../../models/fight-model';
 
 describe('Tests Fight Model', () => {
   const fightMock: IFight = {
@@ -29,6 +29,15 @@ describe('Tests Fight Model', () => {
       Sinon.stub(mongoose.Model, 'insertMany').resolves([fightMock]);
       const model = await Fight.insertMany([fightMock]);
       expect(model).to.be.deep.equal([fightMock]);
+    });
+  });
+
+  describe('Testing find method', () => {
+    it('Test method is called inside model', async () => {
+      const findStub = Sinon.stub(mongoose.Model, 'find').resolves([fightMock]);
+      const model = await Fight.find({}, { _id: 0, __v: 0 });
+      expect(model).to.be.deep.equal([fightMock]);
+      Sinon.assert.called(findStub);
     });
   });
 });

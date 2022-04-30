@@ -1,8 +1,8 @@
 import { expect } from 'chai';
 import mongoose from 'mongoose';
 import Sinon from 'sinon';
-import { IFight } from '../../interfaces';
-import { getAll } from '../../services/fight-service';
+import { IFight } from '../../../interfaces';
+import { getAll } from '../../../services/fight-service';
 
 describe('Tests Fight Service', () => {
   const fightMock: IFight = {
