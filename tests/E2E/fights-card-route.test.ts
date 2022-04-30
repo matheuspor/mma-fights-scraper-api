@@ -12,7 +12,7 @@ const isSorted = (arr: FightCard[]) => arr
     : key.fight.date > arr[index - 1].fight.date));
 
 describe('Tests GET /api/fights-card route', () => {
-  it('Return status 200 with an array containing all 4 fightsCard', async () => chai
+  it('Returns an array containing all 4 fightsCard', async () => chai
     .request(app)
     .get('/api/fights-card')
     .then((res) => {
