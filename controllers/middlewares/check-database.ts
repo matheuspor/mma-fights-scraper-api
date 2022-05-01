@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import connectToDatabase from '../../models/connection';
+import connectToDatabase from '../../models/connectToDatabase';
 import * as FightService from '../../services/fight-service';
 import { populateDatabase } from './populate-database';
 
