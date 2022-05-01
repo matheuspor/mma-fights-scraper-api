@@ -7,4 +7,9 @@ export const create = (fights: FightCard[]): Promise<FightCard[]> => (
   FightsCard.create(fights)
 );
 
-export const getAll = async (): Promise<FightCard[]> => FightsCard.find({}, { _id: 0, __v: 0 }).populate('fight', { _id: 0, __v: 0 });
+export const getAll = async (): Promise<FightCard[]> => {
+  const card = await FightsCard.find({}, { _id: 0, __v: 0 }).populate('fight', { _id: 0, __v: 0 });
+  card.sort((a: FightCard, b: FightCard) => (a.fight.date - b.fight.date));
+  
+  return card;
+}; 
