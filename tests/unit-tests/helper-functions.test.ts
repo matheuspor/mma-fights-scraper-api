@@ -106,8 +106,8 @@ describe('Tests helper functions', () => {
 
   describe('Tests populateDatabase function', () => {
     beforeEach(() => {
-      Sinon.stub(helperFunction, 'fetchFights').resolves([fightMock]);
-      Sinon.stub(helperFunction, 'fetchFightsCard').resolves([fightsCardMock]);
+      Sinon.stub(helperFunction, 'scrapeFights').resolves([fightMock]);
+      Sinon.stub(helperFunction, 'scrapeFightsCard').resolves([fightsCardMock]);
     });
 
     afterEach(() => {
@@ -137,10 +137,10 @@ describe('Tests helper functions', () => {
     });
   });
 
-  describe('Tests fetchFights function', () => {
+  describe('Tests scrapeFights function', () => {
     it('Returns array of fights', async () => {
       const axiosStub = Sinon.stub(axios, 'get').resolves({ data: htmlPageMock });
-      const fights = await helperFunction.fetchFights();
+      const fights = await helperFunction.scrapeFights();
       Sinon.assert.calledOnceWithExactly(axiosStub, 'https://www.ufc.com.br/events');
       expect(fights.length).to.be.equal(4);
       fights.forEach((fight: IFight) => {
@@ -153,10 +153,10 @@ describe('Tests helper functions', () => {
     });
   });
 
-  describe('Tests fetchFightsCard function', () => {
+  describe('Tests scrapeFightsCard function', () => {
     it('Returns array of fightsCard', async () => {
       const axiosStub = Sinon.stub(axios, 'get').resolves({ data: htmlCardsPageMock });
-      const fightsCard = await helperFunction.fetchFightsCard([fightMock]);
+      const fightsCard = await helperFunction.scrapeFightsCard([fightMock]);
       
       fightsCard.forEach((fight: FightCard) => {
         const { url } = fightMock;
