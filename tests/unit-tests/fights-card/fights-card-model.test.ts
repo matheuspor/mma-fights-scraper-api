@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import mongoose from 'mongoose';
 import Sinon from 'sinon';
 import { FightCard } from '../../../interfaces';
-import FightsCard from '../../../models/fights-card-model';
+import FightsCard from '../../../models/fights-card';
 
 describe('Tests FightsCard Model', () => {
   const fightsCardMock: FightCard = {

@@ -1,5 +1,5 @@
 import { FightCard } from '../interfaces';
-import FightsCard from '../models/fights-card-model';
+import FightsCard from '../models/fights-card';
 
 export const deleteMany = async () => FightsCard.deleteMany();
 
