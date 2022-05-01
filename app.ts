@@ -5,6 +5,7 @@ import fightsCardRoutes from './routes/fights-card-routes';
 import { checkDatabase } from './controllers/middlewares/check-database';
 
 const app = express();
+app.disable('x-powered-by');
 
 app.listen(3000, async () => {
   console.log('Server is running on port 3000');
