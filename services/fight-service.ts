@@ -1,4 +1,4 @@
-import Fight from '../models/fight-model';
+import Fight from '../models/fight';
 import { IFight } from '../interfaces';
 
 export const deleteMany = async () => Fight.deleteMany();
