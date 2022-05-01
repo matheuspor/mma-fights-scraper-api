@@ -8,11 +8,11 @@ const mainUrl = 'https://www.ufc.com';
 export const fetchPageHtml = (url: string) => axios.get(url)
   .then((response) => response.data);
 
-export const fetchFights = async () => {
+export const scrapeFights = async () => {
   const html = await fetchPageHtml(eventsUrl);
   const $ = cheerio.load(html);
   const fights: IFight[] = [];
-  $('.c-card-event--result__info', html).each((index, element) => {
+  $('.c-card-event--result__info', html).each((_index, element) => {
     const fightDetails = $(element).children('.c-card-event--result__date').find('a');
     const dateString = $(fightDetails).text().split(' ')[0];
     const date = new Date(`${dateString.split('.').slice(0, 2).reverse().join('.')}.${dateString.split('.').pop()}`);
@@ -34,7 +34,7 @@ export const fetchFights = async () => {
   return fights;
 };
 
-export const fetchFightsCard = async (fights: IFight[]) => {
+export const scrapeFightsCard = async (fights: IFight[]) => {
   const fightCard: FightCard[] = [];
   await Promise.all(fights.map(async ({ url, _id }) => {
     const redCornerFighter: RedCornerCard[] = [];
@@ -43,7 +43,7 @@ export const fetchFightsCard = async (fights: IFight[]) => {
     const $ = cheerio.load(html);
 
     // Reads page left side scraping the red corner fighters data (name and photo)
-    $('.c-listing-fight__corner--red', html).each((index, element) => {
+    $('.c-listing-fight__corner--red', html).each((_index, element) => {
       const fighterFirstName = $(element).find('div').children('.c-listing-fight__corner-given-name').text();
       const fighterFamilyName = $(element).find('div').children('.c-listing-fight__corner-family-name').text();
       const fighterPhoto = $(element).find('img').attr('src');
@@ -51,7 +51,7 @@ export const fetchFightsCard = async (fights: IFight[]) => {
     });
 
     // Reads page right side scraping the blue corner fighters data (name and photo)
-    $('.c-listing-fight__corner--blue', html).each((index, element) => {
+    $('.c-listing-fight__corner--blue', html).each((_index, element) => {
       const fighterFirstName = $(element).find('div').children('.c-listing-fight__corner-given-name').text();
       const fighterFamilyName = $(element).find('div').children('.c-listing-fight__corner-family-name').text();
       const fighterPhoto = $(element).find('img').attr('src');
