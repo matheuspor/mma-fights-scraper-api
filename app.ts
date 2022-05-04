@@ -7,7 +7,9 @@ import connectToDatabase from './models/connectToDatabase';
 const app = express();
 app.disable('x-powered-by');
 
-app.listen(3000, async () => {
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, async () => {
   connectToDatabase();
   console.log('Server is running on port 3000');
 });
