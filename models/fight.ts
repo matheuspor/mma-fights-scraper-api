@@ -2,6 +2,7 @@ import { Schema, model } from 'mongoose';
 import { IFight } from '../interfaces';
 
 const FightSchema = new Schema<IFight>({
+  _id: Number,
   title: String,
   url: String,
   date: Date,

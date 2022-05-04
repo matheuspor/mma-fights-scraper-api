@@ -4,7 +4,7 @@ import { FightCard } from '../interfaces';
 interface FightDocument extends FightCard, Document { }
 
 const FightsCardSchema = new Schema<FightDocument>({
-  fight: { type: Schema.Types.ObjectId, ref: 'Fight' },
+  fight: { type: Schema.Types.Number, ref: 'Fight' },
   card: Array,
 });
 
