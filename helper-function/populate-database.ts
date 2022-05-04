@@ -4,8 +4,10 @@ import * as FightService from '../services/fight-service';
 import * as FightsCardService from '../services/fights-card-service';
 
 const populateDatabase = async () => {
-  const fights = await scrapeFights();
   connectToDatabase();
+  await Promise.all([FightService.deleteMany(), FightsCardService.deleteMany()]);
+  
+  const fights = await scrapeFights();
 
   await Promise.all(
     [

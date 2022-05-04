@@ -1,8 +1,10 @@
 import express from 'express';
-import 'dotenv/config';
+import dotenv from 'dotenv';
 import fightsRoutes from './routes/fights-routes';
 import fightsCardRoutes from './routes/fights-card-routes';
 import connectToDatabase from './models/connectToDatabase';
+
+dotenv.config();
 
 const app = express();
 app.disable('x-powered-by');
