@@ -6,6 +6,7 @@ import Fight from '../../../models/fight';
 
 describe('Tests Fight Model', () => {
   const fightMock: IFight = {
+    _id: 1,
     title: 'fight title',
     url: 'fightUrl',
     date: new Date(),

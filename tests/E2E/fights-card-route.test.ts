@@ -1,7 +1,7 @@
 import chai from 'chai';
 import chaiHttp = require('chai-http');
 import app from '../../app';
-import { Card, FightCard } from '../../interfaces';
+import { Card, FightCard, IFight } from '../../interfaces';
 
 chai.use(chaiHttp);
 
@@ -9,7 +9,7 @@ const { expect } = chai;
 
 const isSorted = (arr: FightCard[]) => arr
   .every((key: FightCard, index) => (index === 0 ? true
-    : key.fight.date > arr[index - 1].fight.date));
+    : (key.fight as IFight).date > (arr[index - 1].fight as IFight).date));
 
 describe('Tests GET /api/fights-card route', () => {
   it('Returns an array containing all 4 fightsCard', async () => chai

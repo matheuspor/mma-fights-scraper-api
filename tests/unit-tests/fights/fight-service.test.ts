@@ -6,6 +6,7 @@ import { getAll } from '../../../services/fight-service';
 
 describe('Tests Fight Service', () => {
   const fightMock: IFight = {
+    _id: 1,
     title: 'fight title',
     url: 'fightUrl',
     date: new Date(),

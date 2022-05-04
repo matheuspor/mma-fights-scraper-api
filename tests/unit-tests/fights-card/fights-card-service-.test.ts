@@ -5,7 +5,7 @@ import { FightCard } from '../../../interfaces';
 import { getAll, create, deleteMany } from '../../../services/fights-card-service';
 
 const fightsCardMock: FightCard = {
-  fight: 'sampleId',
+  fight: 1,
   card: [{
     redCornerName: 'redCornerName',
     redCornerPhoto: 'redCornerUrl',

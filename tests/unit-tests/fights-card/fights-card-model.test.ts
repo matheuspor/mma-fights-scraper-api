@@ -6,7 +6,7 @@ import FightsCard from '../../../models/fights-card';
 
 describe('Tests FightsCard Model', () => {
   const fightsCardMock: FightCard = {
-    fight: 'sampleId',
+    fight: 1,
     card: [{
       redCornerName: 'redCornerName',
       redCornerPhoto: 'redCornerUrl',

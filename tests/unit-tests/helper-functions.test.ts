@@ -2,19 +2,18 @@ import axios from 'axios';
 import { expect } from 'chai';
 import { readFileSync } from 'fs';
 import Sinon = require('sinon');
-import mongoose from 'mongoose';
 import { Card, FightCard, IFight } from '../../interfaces';
-import * as helperFunction from '../../scraper/scraper-functions';
-import { populateDatabase } from '../../controllers/middlewares/populate-database';
+import * as helperFunction from '../../helper-function/scraper';
 import * as FightService from '../../services/fight-service';
 import * as FightsCardService from '../../services/fights-card-service';
+import populateDatabase from '../../helper-function/populate-database';
 
 const htmlPageMock = JSON.parse(readFileSync('./tests/html-page-mock.json', 'utf8'));
 const htmlCardsPageMock = JSON.parse(readFileSync('./tests/html-fightCard-mock.json', 'utf8'));
 
 describe('Tests helper functions', () => {
   const fightMock: IFight = {
-    _id: 'sampleId' as any,
+    _id: 1,
     title: 'fight title',
     url: 'fightUrl',
     date: new Date(),
@@ -23,7 +22,7 @@ describe('Tests helper functions', () => {
   };
 
   const fightsCardMock: FightCard = {
-    fight: 'sampleId' as any,
+    fight: 1,
     card: [
       {
         redCornerName: 'Rob Font',
@@ -106,27 +105,28 @@ describe('Tests helper functions', () => {
 
   describe('Tests populateDatabase function', () => {
     beforeEach(() => {
-      Sinon.stub(helperFunction, 'scrapeFights').resolves([fightMock]);
-      Sinon.stub(helperFunction, 'scrapeFightsCard').resolves([fightsCardMock]);
+      Sinon.stub(process, 'exit').resolves();
     });
 
     afterEach(() => {
       Sinon.restore();
     });
 
-    it('Tests FightsCardService.deleteMany() and FightService.deleteMany() are called', async () => {
-      Sinon.stub(mongoose.Model, 'create').resolves();
+    it('Tests helperFunction.scrapeFights() and helperFunction.scrapeFightsCard(fights) are called', async () => {
+      Sinon.stub(FightsCardService, 'create').resolves();
+      Sinon.stub(FightService, 'create').resolves();
 
-      const fightsCardDeleteMany = Sinon.stub(FightsCardService, 'deleteMany').resolves();
-      const fightsDeleteMany = Sinon.stub(FightService, 'deleteMany').resolves();
+      const scrapeFightsStub = Sinon.stub(helperFunction, 'scrapeFights').resolves([fightMock]);
+      const scrapeFightsCardStub = Sinon.stub(helperFunction, 'scrapeFightsCard').resolves([fightsCardMock]);
 
       await populateDatabase();
-      Sinon.assert.calledOnce(fightsCardDeleteMany);
-      Sinon.assert.calledOnce(fightsDeleteMany);
+      Sinon.assert.calledOnce(scrapeFightsStub);
+      Sinon.assert.calledWith(scrapeFightsCardStub, [fightMock]);
     });
 
     it('Tests FightsCardService.create() and FightService.create() are called with expected values', async () => {
-      Sinon.stub(mongoose.Model, 'deleteMany').resolves();
+      Sinon.stub(helperFunction, 'scrapeFights').resolves([fightMock]);
+      Sinon.stub(helperFunction, 'scrapeFightsCard').resolves([fightsCardMock]);
 
       const fightsCardCreate = Sinon.stub(FightsCardService, 'create').resolves();
       const fightsCreate = Sinon.stub(FightService, 'create').resolves();
@@ -157,7 +157,7 @@ describe('Tests helper functions', () => {
     it('Returns array of fightsCard', async () => {
       const axiosStub = Sinon.stub(axios, 'get').resolves({ data: htmlCardsPageMock });
       const fightsCard = await helperFunction.scrapeFightsCard([fightMock]);
-      
+
       fightsCard.forEach((fight: FightCard) => {
         const { url } = fightMock;
         Sinon.assert.calledOnceWithExactly(axiosStub, url);

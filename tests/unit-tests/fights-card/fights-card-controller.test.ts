@@ -7,7 +7,7 @@ import * as fightsCardController from '../../../controllers/fights-card-controll
 
 describe('Tests Fight Controller', () => {
   const fightsCardMock: FightCard = {
-    fight: 'sampleId',
+    fight: 1,
     card: [{
       redCornerName: 'redCornerName',
       redCornerPhoto: 'redCornerUrl',

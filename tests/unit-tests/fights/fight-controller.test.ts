@@ -7,6 +7,7 @@ import * as fightController from '../../../controllers/fight-controller';
 
 describe('Tests Fight Controller', () => {
   const fightMock: IFight = {
+    _id: 1,
     title: 'fight title',
     url: 'fightUrl',
     date: new Date(),
