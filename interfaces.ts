@@ -1,7 +1,5 @@
-import { ObjectId } from 'mongoose';
-
 export interface IFight {
-  _id?: ObjectId,
+  _id: number,
   title: string,
   url: string,
   date: Date,
@@ -10,7 +8,7 @@ export interface IFight {
 }
 
 export interface FightCard {
-  fight: ObjectId | any,
+  fight: number | IFight,
   card: Card[]
 }
 
