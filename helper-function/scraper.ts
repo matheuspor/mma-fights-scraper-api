@@ -12,7 +12,7 @@ export const scrapeFights = async () => {
   const html = await fetchPageHtml(eventsUrl);
   const $ = cheerio.load(html);
   const fights: IFight[] = [];
-  $('.c-card-event--result__info', html).each((_index, element) => {
+  $('.c-card-event--result__info', html).each((index, element) => {
     const fightDetails = $(element).children('.c-card-event--result__date').find('a');
     const dateString = $(fightDetails).text().split(' ')[0];
     const date = new Date(`${dateString.split('.').slice(0, 2).reverse().join('.')}.${dateString.split('.').pop()}`);
@@ -21,15 +21,15 @@ export const scrapeFights = async () => {
     const url = mainUrl + $(fightDetails).attr('href');
     const fightNight = url.includes('fight-night');
 
-    if (fights.length < 4) {
-      fights.push({
-        title,
-        url,
-        date,
-        time,
-        fightNight,
-      });
-    }
+    fights.push({
+      _id: index,
+      title,
+      url,
+      date,
+      time,
+      fightNight,
+    });
+    if (fights.length === 4) return false;
   });
   return fights;
 };
