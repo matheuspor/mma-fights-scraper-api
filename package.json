@@ -4,7 +4,11 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon app.ts",
+    "db:populate": "ts-node ./helper-function/populate-database.ts",
+    "db:start": "docker-compose up -d && echo 'db.dropDatabase()' | mongo mma-fights",
+    "pre-start": "npm run db:start && npm run db:populate",
+    "start": "npm run pre-start && ts-node app.ts",
+    "dev": "npm run pre-start && nodemon app.ts",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "test": "mocha -r ts-node/register \"tests/**/*.test.ts\" --exit -t 60000",
     "test:coverage": "nyc npm run test"
