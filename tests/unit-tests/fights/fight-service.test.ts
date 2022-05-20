@@ -19,8 +19,11 @@ describe('Tests Fight Service', () => {
 
   describe('Tests getAll function', () => {
     it('Test getAll returns an array of fights', async () => {
-      Sinon.stub(mongoose.Model, 'find').resolves([fightMock]);
+      const findStub = Sinon.stub(mongoose.Model, 'find').returns({ sort: Sinon.stub().returns([fightMock]) } as any);
+
       const model = await getAll();
+
+      Sinon.assert.calledWith(findStub, {}, { _id: 0, __v: 0 });
       expect(model).to.be.an('array');
       expect(model).to.be.deep.equal([fightMock]);
     });
