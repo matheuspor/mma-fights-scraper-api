@@ -45,8 +45,5 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
-      - name: Start MongoDB Container and Populate Database
-        run: npm run pre-start
-
       - name: Run Tests
         run: npm test
