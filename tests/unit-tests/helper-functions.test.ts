@@ -119,7 +119,7 @@ describe('Tests helper functions', () => {
       const scrapeFightsStub = Sinon.stub(helperFunction, 'scrapeFights').resolves([fightMock]);
       const scrapeFightsCardStub = Sinon.stub(helperFunction, 'scrapeFightsCard').resolves([fightsCardMock]);
 
-      await populateDatabase();
+      await populateDatabase(new Date('2020-01-01').toLocaleDateString());
       Sinon.assert.calledOnce(scrapeFightsStub);
       Sinon.assert.calledWith(scrapeFightsCardStub, [fightMock]);
     });
@@ -131,7 +131,7 @@ describe('Tests helper functions', () => {
       const fightsCardCreate = Sinon.stub(FightsCardService, 'create').resolves();
       const fightsCreate = Sinon.stub(FightService, 'create').resolves();
 
-      await populateDatabase();
+      await populateDatabase(new Date('2020-01-01').toLocaleDateString());
       Sinon.assert.calledOnceWithExactly(fightsCardCreate, [fightsCardMock]);
       Sinon.assert.calledOnceWithExactly(fightsCreate, [fightMock]);
     });
