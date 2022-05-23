@@ -14,7 +14,7 @@ const PORT = process.env.PORT || 3000;
 let deployedDate = new Date('2022-01-01').toLocaleDateString();
 
 app.listen(PORT, async () => {
-  console.log('Server is running on port 3000');
+  console.log(`Server is running on port ${PORT}`);
 });
 
 app.use((_req, res, next) => {
