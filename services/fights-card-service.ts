@@ -13,4 +13,10 @@ export const getAll = async (): Promise<FightCard[]> => {
     (a.fight as IFight).date.getTime() - (b.fight as IFight).date.getTime()));
 
   return card;
-}; 
+};
+
+export const getById = async (id: string) => {
+  const card = await FightsCard.findOne({ fight: id }).populate('fight', { __v: 0 });
+
+  return card;
+};
