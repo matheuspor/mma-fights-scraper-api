@@ -42,11 +42,5 @@ jobs:
           node-version: 14
           cache: npm
 
-      - name: Install Dependencies
-        run: npm install
-
-      - name: Start mongodb local container
-        run: npm run pre-test
-
       - name: Run Tests
         run: npm test
