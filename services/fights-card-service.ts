@@ -15,8 +15,4 @@ export const getAll = async (): Promise<FightCard[]> => {
   return card;
 };
 
-export const getById = async (id: string) => {
-  const card = await FightsCard.findOne({ fight: id }).populate('fight', { __v: 0 });
-
-  return card;
-};
+export const getById = async (id: string) => FightsCard.findOne({ fight: id }).populate('fight', { __v: 0 });
