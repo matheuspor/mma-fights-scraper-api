@@ -11,8 +11,8 @@
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "mocha-tests": "mocha -r ts-node/register \"tests/**/*.test.ts\" --exit -t 60000",
     "mocha-tests:coverage": "nyc npm run mocha-tests",
-    "test": "docker-compose run app npm run mocha-tests && npm run compose-down",
-    "test:coverage": "docker-compose run app npm run mocha-tests:coverage && npm run compose-down"
+    "test": "docker-compose run --rm app npm run mocha-tests",
+    "test:coverage": "docker-compose run --rm app npm run mocha-tests:coverage"
   },
   "author": "",
   "license": "ISC",
