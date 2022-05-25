@@ -24,7 +24,7 @@ app.use((_req, res, next) => {
 });
 
 app.use(async (_req, _res, next) => {
-  await populateDatabase(deployedDate);
+  if (new Date().toLocaleDateString() > deployedDate) await populateDatabase();
   deployedDate = new Date().toLocaleDateString();
   next();
 });

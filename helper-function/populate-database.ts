@@ -2,9 +2,7 @@ import { scrapeFights, scrapeFightsCard } from './scraper';
 import * as FightService from '../services/fight-service';
 import * as FightsCardService from '../services/fights-card-service';
 
-const populateDatabase = async (deployedDate: string) => {
-  if (new Date().toLocaleDateString() <= deployedDate) return;
-  
+const populateDatabase = async () => {  
   await Promise.all([FightService.deleteMany(), FightsCardService.deleteMany()]);
 
   const fights = await scrapeFights();
