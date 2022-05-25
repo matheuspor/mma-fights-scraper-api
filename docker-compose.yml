@@ -17,8 +17,13 @@ services:
 
   mongodb:
     image: mongo:5.0
+    container_name: mongodb
+    volumes:
+      - mongodb:/data/db
+      - mongodb:/data/configdb
     ports:
       - 27017:27017
     restart: 'always'
 volumes:
   app:
+  mongodb:  
