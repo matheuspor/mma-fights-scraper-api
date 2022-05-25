@@ -1,1 +1,1 @@
-# mma-fights-web-scraper
+# mma-fights-scraper-api

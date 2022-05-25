@@ -1,3 +1,4 @@
 node_modules
+package-lock.json
 .gitpod.yml
 .nyc_output
