@@ -31,6 +31,10 @@
 
 ## Usage
 
+<em> Note: The first request might take a while since the api is hosted on a free Heroku web dyno. </em>
+
+<h3> Get list of upcoming fights with card </h3>
+
   <p> Example Request: <p>
   
   ```bash
