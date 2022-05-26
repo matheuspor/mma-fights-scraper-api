@@ -6,7 +6,7 @@
 <div align="center">
   
   <a href="">![GitHub license](https://img.shields.io/github/license/matheuspor/mma-fights-scraper-api)</a>
-  <a href="">![GitHub workflow status](https://img.shields.io/github/workflow/status/matheuspor/mma-fights-scraper-api/Node.js%20Tests)</a>
+  <a href="">![GitHub workflow status](https://img.shields.io/github/workflow/status/matheuspor/mma-fights-web-scraper/Node.js%20Tests)</a>
   <a href="">![Repo top language](https://img.shields.io/github/languages/top/matheuspor/mma-fights-scraper-api)</a>
   
 </div>
@@ -21,7 +21,7 @@
 ## About
 
   <p align="center">   
-  ⚒️Built with Typescript, Express, Cheerio and MongoDB. <br>
+  ⚒️REST API built with Typescript, Express, Cheerio and MongoDB. <br>
   Scrapes UFC events schedule page, saves data as a MongoDB collection and serves in its endpoints.
   </p>
 
@@ -33,7 +33,7 @@
 
 <em> Note: The first request might take a while since the api is hosted on a free Heroku web dyno. </em>
 
-<h3> Get list of upcoming fights with card </h3>
+<h3> Get list of upcoming fights </h3>
 
   <p> Example Request: <p>
   
@@ -51,7 +51,6 @@
   "url": ""
 }, { ... } ]
 ```
-
 ---
 
   <h3> Get list of upcoming fights with card </h3>
