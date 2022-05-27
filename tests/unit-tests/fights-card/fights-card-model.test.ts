@@ -1,17 +1,15 @@
 import { expect } from 'chai';
 import mongoose from 'mongoose';
 import Sinon from 'sinon';
-import { FightCard } from '../../../interfaces';
+import { IFightCard } from '../../../interfaces';
 import FightsCard from '../../../models/fights-card';
 
 describe('Tests FightsCard Model', () => {
-  const fightsCardMock: FightCard = {
-    fight: 1,
-    card: [{
-      redCornerName: 'redCornerName',
-      redCornerPhoto: 'redCornerUrl',
-      blueCornerName: 'blueCornerName',
-      blueCornerPhoto: 'blueCornerUrl',
+  const fightsCardMock: IFightCard = {
+    event: 1,
+    fights: [{
+      redCornerFighter: 'redCornerName',
+      blueCornerFighter: 'blueCornerName',
     }],
   };
   beforeEach(() => {
