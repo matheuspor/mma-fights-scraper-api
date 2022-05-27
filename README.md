@@ -18,7 +18,7 @@
     <a href="#run-locally">Run Locally</a> 
   </p>
   
-## About
+## About 
 
   <p align="center">   
   ⚒️REST API built with Typescript, Express, Cheerio and MongoDB. <br>
