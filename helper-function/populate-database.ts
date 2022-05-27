@@ -1,16 +1,16 @@
-import { scrapeFights, scrapeFightsCard } from './scraper';
-import * as FightService from '../services/fight-service';
+import { scrapeEvents, scrapeFightsCard } from './scraper';
+import * as eventService from '../services/event-service';
 import * as FightsCardService from '../services/fights-card-service';
 
 const populateDatabase = async () => {  
-  await Promise.all([FightService.deleteMany(), FightsCardService.deleteMany()]);
+  await Promise.all([eventService.deleteMany(), FightsCardService.deleteMany()]);
 
-  const fights = await scrapeFights();
+  const events = await scrapeEvents();
 
   await Promise.all(
     [
-      FightService.create(fights),
-      scrapeFightsCard(fights),
+      eventService.create(events),
+      scrapeFightsCard(events),
     ],
   ).then((values) => FightsCardService.create(values[1]));
 };

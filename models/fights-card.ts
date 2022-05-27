@@ -1,13 +1,13 @@
 import { Schema, model, Document } from 'mongoose';
-import { FightCard } from '../interfaces';
+import { IFightCard } from '../interfaces';
 
-interface FightDocument extends FightCard, Document { }
+interface FightDocument extends IFightCard, Document { }
 
 const FightsCardSchema = new Schema<FightDocument>({
-  fight: { type: Schema.Types.Number, ref: 'Fight' },
-  card: Array,
+  event: { type: Schema.Types.Number, ref: 'Event' },
+  fights: Array,
 });
 
-const FightsCard = model<FightCard>('FightsCard', FightsCardSchema);
+const FightsCard = model<IFightCard>('FightsCard', FightsCardSchema);
 
 export default FightsCard;
