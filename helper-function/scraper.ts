@@ -44,18 +44,20 @@ export const scrapeFightsCard = async (fights: IFight[]) => {
 
     // Reads page left side scraping the red corner fighters data (name and photo)
     $('.c-listing-fight__corner--red', html).each((_index, element) => {
-      const fighterFirstName = $(element).find('div').children('.c-listing-fight__corner-given-name').text();
-      const fighterFamilyName = $(element).find('div').children('.c-listing-fight__corner-family-name').text();
+      const fighterName = $(element).find('.c-listing-fight__corner-name').text();
+      const trimmedFighterName = fighterName.split(' ').filter((name) => (name !== '\n' && name !== ''));
+      const fighterFullName = trimmedFighterName.map((name) => name.replace('\n', '')).join(' ');
       const fighterPhoto = $(element).find('img').attr('src');
-      redCornerFighter.push({ redCornerName: `${fighterFirstName} ${fighterFamilyName}`, redCornerPhoto: fighterPhoto });
+      redCornerFighter.push({ redCornerName: `${fighterFullName}`, redCornerPhoto: fighterPhoto });
     });
 
     // Reads page right side scraping the blue corner fighters data (name and photo)
     $('.c-listing-fight__corner--blue', html).each((_index, element) => {
-      const fighterFirstName = $(element).find('div').children('.c-listing-fight__corner-given-name').text();
-      const fighterFamilyName = $(element).find('div').children('.c-listing-fight__corner-family-name').text();
+      const fighterName = $(element).find('.c-listing-fight__corner-name').text();
+      const trimmedFighterName = fighterName.split(' ').filter((name) => (name !== '\n' && name !== ''));
+      const fighterFullName = trimmedFighterName.map((name) => name.replace('\n', '')).join(' ');
       const fighterPhoto = $(element).find('img').attr('src');
-      blueCornerFighter.push({ blueCornerName: `${fighterFirstName} ${fighterFamilyName}`, blueCornerPhoto: fighterPhoto });
+      blueCornerFighter.push({ blueCornerName: `${fighterFullName}`, blueCornerPhoto: fighterPhoto });
     });
 
     // Merge both arrays of fighters data
