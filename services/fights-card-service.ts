@@ -8,7 +8,7 @@ export const create = (fights: IFightCard[]): Promise<IFightCard[]> => (
 );
 
 export const getAll = async (): Promise<IFightCard[]> => {
-  const card = await FightsCard.find({}, { _id: 0, __v: 0 }).populate('event', { _id: 0, __v: 0 });
+  const card = await FightsCard.find({}, { _id: 0, __v: 0 }).populate('event', { __v: 0 });
   card.sort((a: IFightCard, b: IFightCard) => (
     (a.event as IEvent).date.getTime() - (b.event as IEvent).date.getTime()));
 
