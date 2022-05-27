@@ -1,18 +1,16 @@
 import { expect } from 'chai';
 import { Request, Response } from 'express';
 import Sinon = require('sinon');
-import { FightCard } from '../../../interfaces';
+import { IFightCard } from '../../../interfaces';
 import * as fightsCardService from '../../../services/fights-card-service';
 import * as fightsCardController from '../../../controllers/fights-card-controller';
 
 describe('Tests Fight Controller', () => {
-  const fightsCardMock: FightCard = {
-    fight: 1,
-    card: [{
-      redCornerName: 'redCornerName',
-      redCornerPhoto: 'redCornerUrl',
-      blueCornerName: 'blueCornerName',
-      blueCornerPhoto: 'blueCornerUrl',
+  const fightsCardMock: IFightCard = {
+    event: 1,
+    fights: [{
+      redCornerFighter: 'redCornerName',
+      blueCornerFighter: 'blueCornerName',
     }],
   };
 

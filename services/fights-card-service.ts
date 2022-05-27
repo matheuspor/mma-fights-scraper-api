@@ -1,18 +1,18 @@
-import { FightCard, IFight } from '../interfaces';
+import { IFightCard, IEvent } from '../interfaces';
 import FightsCard from '../models/fights-card';
 
 export const deleteMany = async () => FightsCard.deleteMany();
 
-export const create = (fights: FightCard[]): Promise<FightCard[]> => (
+export const create = (fights: IFightCard[]): Promise<IFightCard[]> => (
   FightsCard.create(fights)
 );
 
-export const getAll = async (): Promise<FightCard[]> => {
-  const card = await FightsCard.find({}, { _id: 0, __v: 0 }).populate('fight', { _id: 0, __v: 0 });
-  card.sort((a: FightCard, b: FightCard) => (
-    (a.fight as IFight).date.getTime() - (b.fight as IFight).date.getTime()));
+export const getAll = async (): Promise<IFightCard[]> => {
+  const card = await FightsCard.find({}, { _id: 0, __v: 0 }).populate('event', { _id: 0, __v: 0 });
+  card.sort((a: IFightCard, b: IFightCard) => (
+    (a.event as IEvent).date.getTime() - (b.event as IEvent).date.getTime()));
 
   return card;
 };
 
-export const getById = async (id: string) => FightsCard.findOne({ fight: id }).populate('fight', { __v: 0 });
+export const getById = async (id: string) => FightsCard.findOne({ event: id }, { _id: 0, __v: 0 }).populate('event', { __v: 0 });

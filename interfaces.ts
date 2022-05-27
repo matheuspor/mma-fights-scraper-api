@@ -1,4 +1,4 @@
-export interface IFight {
+export interface IEvent {
   _id: number,
   title: string,
   url: string,
@@ -7,19 +7,17 @@ export interface IFight {
   fightNight: boolean
 }
 
-export interface FightCard {
-  fight: number | IFight,
-  card: Card[]
+export interface IFightCard {
+  event: number | IEvent,
+  fights: IFight[]
 }
 
-export interface RedCornerCard {
-  redCornerName: string,
-  redCornerPhoto?: string
+export interface IRedCornerFighter {
+  redCornerFighter: string
 }
 
-export interface BlueCornerCard {
-  blueCornerName: string,
-  blueCornerPhoto?: string
+export interface IBlueCornerFighter {
+  blueCornerFighter: string
 }
 
-export interface Card extends RedCornerCard, BlueCornerCard { }
+export interface IFight extends IRedCornerFighter, IBlueCornerFighter { }

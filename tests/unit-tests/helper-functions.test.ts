@@ -2,17 +2,17 @@ import axios from 'axios';
 import { expect } from 'chai';
 import { readFileSync } from 'fs';
 import Sinon = require('sinon');
-import { Card, FightCard, IFight } from '../../interfaces';
+import { IFight, IFightCard, IEvent } from '../../interfaces';
 import * as helperFunction from '../../helper-function/scraper';
-import * as FightService from '../../services/fight-service';
-import * as FightsCardService from '../../services/fights-card-service';
+import * as eventService from '../../services/event-service';
+import * as fightsCardService from '../../services/fights-card-service';
 import populateDatabase from '../../helper-function/populate-database';
 
 const htmlPageMock = JSON.parse(readFileSync('./tests/html-page-mock.json', 'utf8'));
 const htmlCardsPageMock = JSON.parse(readFileSync('./tests/html-fightCard-mock.json', 'utf8'));
 
 describe('Tests helper functions', () => {
-  const fightMock: IFight = {
+  const eventMock: IEvent = {
     _id: 1,
     title: 'fight title',
     url: 'fightUrl',
@@ -21,80 +21,56 @@ describe('Tests helper functions', () => {
     fightNight: true,
   };
 
-  const fightsCardMock: FightCard = {
-    fight: 1,
-    card: [
+  const fightsCardMock: IFightCard = {
+    event: 1,
+    fights: [
       {
-        redCornerName: 'Rob Font',
-        redCornerPhoto: 'https://dmxg5wxfqgb4u.cloudfront.net/styles/event_fight_card_upper_body_of_standing_athlete/s3/2021-05/69105%252Fprofile-galery%252Ffullbodyleft-picture%252FFONT_ROB_L_05-22.png?VersionId=null&itok=HvqDL3hG',
-        blueCornerName: 'Marlon Vera',
-        blueCornerPhoto: 'https://dmxg5wxfqgb4u.cloudfront.net/styles/event_fight_card_upper_body_of_standing_athlete/s3/2021-06/68723%252Fprofile-galery%252Ffullbodyright-picture%252FVERA_MARLON_R_06-19.png?VersionId=null&itok=r_84HPVJ',
+        redCornerFighter: 'Rob Font',
+        blueCornerFighter: 'Marlon Vera',
       },
       {
-        redCornerName: 'Andrei Arlovski',
-        redCornerPhoto: 'https://dmxg5wxfqgb4u.cloudfront.net/styles/event_fight_card_upper_body_of_standing_athlete/s3/2021-04/67319%252Fprofile-galery%252Ffullbodyleft-picture%252FARLOVSKI_ANDREI_L_04-17.png?VersionId=null&itok=8OnocL_9',
-        blueCornerName: 'Jake Collier',
-        blueCornerPhoto: 'https://dmxg5wxfqgb4u.cloudfront.net/styles/event_fight_card_upper_body_of_standing_athlete/s3/2021-06/68155%252Fprofile-galery%252Ffullbodyright-picture%252FCOLLIER_JAKE_R_06-12.png?VersionId=null&itok=NVjWckS2',
+        redCornerFighter: 'Andrei Arlovski',
+        blueCornerFighter: 'Jake Collier',
       },
       {
-        redCornerName: 'Andre Fili',
-        redCornerPhoto: 'https://dmxg5wxfqgb4u.cloudfront.net/styles/event_fight_card_upper_body_of_standing_athlete/s3/2021-06/67307%252Fprofile-galery%252Ffullbodyleft-picture%252FFILI_ANDRE_L_06-26.png?itok=Zd2IyCNm',
-        blueCornerName: 'Joanderson Brito',
-        blueCornerPhoto: 'https://dmxg5wxfqgb4u.cloudfront.net/styles/event_fight_card_upper_body_of_standing_athlete/s3/2022-01/BRITO_JOANDERSON_R_01-15.png?itok=9vSP5ywp',
+        redCornerFighter: 'Andre Fili',
+        blueCornerFighter: 'Joanderson Brito',
       },
       {
-        redCornerName: 'Jared Gordon',
-        redCornerPhoto: 'https://dmxg5wxfqgb4u.cloudfront.net/styles/event_fight_card_upper_body_of_standing_athlete/s3/2021-10/68187%252Fprofile-galery%252Ffullbodyleft-picture%252FGORDON_JARED_L_10-02.png?itok=iqRC2LqG',
-        blueCornerName: 'Grant Dawson',
-        blueCornerPhoto: 'https://dmxg5wxfqgb4u.cloudfront.net/styles/event_fight_card_upper_body_of_standing_athlete/s3/2022-04/ba03a3e1-6f90-4269-bb46-4c9cb0613432%252FDAWSON_GRANT_R_10-23.png?itok=9FxyuVs-',
+        redCornerFighter: 'Jared Gordon',
+        blueCornerFighter: 'Grant Dawson',
       },
       {
-        redCornerName: 'Darren Elkins',
-        redCornerPhoto: 'https://dmxg5wxfqgb4u.cloudfront.net/styles/event_fight_card_upper_body_of_standing_athlete/s3/2021-07/67752%252Fprofile-galery%252Ffullbodyleft-picture%252FELKINS_DARREN_L_07-24.png?itok=k-gHorrJ',
-        blueCornerName: 'Tristan Connelly',
-        blueCornerPhoto: 'https://dmxg5wxfqgb4u.cloudfront.net/styles/event_fight_card_upper_body_of_standing_athlete/s3/2021-04/71589%252Fprofile-galery%252Ffullbodyright-picture%252FCONNELLY_TRISTAN_R_04-24.png?VersionId=null&itok=-hquUahp',
+        redCornerFighter: 'Darren Elkins',
+        blueCornerFighter: 'Tristan Connelly',
       },
       {
-        redCornerName: 'Krzysztof Jotko',
-        redCornerPhoto: 'https://dmxg5wxfqgb4u.cloudfront.net/styles/event_fight_card_upper_body_of_standing_athlete/s3/2021-05/68525%252Fprofile-galery%252Ffullbodyleft-picture%252FJOTKO_KRZYSZTOF_L_05-01.png?VersionId=null&itok=nlfTIhbF',
-        blueCornerName: 'Gerald Meerschaert',
-        blueCornerPhoto: 'https://dmxg5wxfqgb4u.cloudfront.net/styles/event_fight_card_upper_body_of_standing_athlete/s3/2021-04/68011%252Fprofile-galery%252Ffullbodyright-picture%252FMEERSCHAERT_GERALD_R_04-17.png?VersionId=null&itok=EXGZvhgE',
+        redCornerFighter: 'Krzysztof Jotko',
+        blueCornerFighter: 'Gerald Meerschaert',
       },
       {
-        redCornerName: 'Alexandr Romanov',
-        redCornerPhoto: 'https://dmxg5wxfqgb4u.cloudfront.net/styles/event_fight_card_upper_body_of_standing_athlete/s3/2022-04/318f6bdb-ab1d-4e95-8328-37d1e0d4072f%252FROMANOV_ALEXANDR_L_04-23.png?itok=LBAzltnK',
-        blueCornerName: 'Chase Sherman',
-        blueCornerPhoto: 'https://dmxg5wxfqgb4u.cloudfront.net/styles/event_fight_card_upper_body_of_standing_athlete/s3/2022-04/e273df3c-9095-46b1-85f8-029aa2ce4a3c%252FSHERMAN_CHASE_R_04-23.png?itok=stKtpMvt',
+        redCornerFighter: 'Alexandr Romanov',
+        blueCornerFighter: 'Chase Sherman',
       },
       {
-        redCornerName: 'Daniel Lacerda',
-        redCornerPhoto: 'https://dmxg5wxfqgb4u.cloudfront.net/styles/event_fight_card_upper_body_of_standing_athlete/s3/2022-04/c0a73801-38e7-4887-9814-744e6443488b%252FDA_SILVA_DANIEL_L_10-23.png?itok=o0WJR0i8',
-        blueCornerName: 'Francisco Figueiredo',
-        blueCornerPhoto: 'https://dmxg5wxfqgb4u.cloudfront.net/styles/event_fight_card_upper_body_of_standing_athlete/s3/2021-07/FIGUEIREDO_FRANCISCO_R_07-17.png?itok=wV7dheqX',
+        redCornerFighter: 'Daniel Lacerda',
+        blueCornerFighter: 'Francisco Figueiredo',
       },
       {
-        redCornerName: 'Gabriel Green',
-        redCornerPhoto: 'https://dmxg5wxfqgb4u.cloudfront.net/styles/event_fight_card_upper_body_of_standing_athlete/s3/2022-04/001f81ff-e238-4d76-93b5-a74d59f4550a%252FGREEN_GABE_L_04-30.png?itok=aYfPst5q',
-        blueCornerName: 'Yohan Lainesse Lainesse',
-        blueCornerPhoto: 'https://dmxg5wxfqgb4u.cloudfront.net/styles/event_fight_card_upper_body_of_standing_athlete/s3/2022-04/60cd2945-195c-463b-9736-912fe156bf57%252FLAINESSE_YOHAN_R_04-30.png?itok=lWQGVa_h',
+        redCornerFighter: 'Gabriel Green',
+        blueCornerFighter: 'Yohan Lainesse Lainesse',
       },
       {
-        redCornerName: 'Natan Levy',
-        redCornerPhoto: 'https://dmxg5wxfqgb4u.cloudfront.net/styles/event_fight_card_upper_body_of_standing_athlete/s3/2022-04/ec33ffaf-1ad4-428c-b4ea-2548c4fe74f1-LEVY_NATAN_L_11-20.png?itok=PnzY6e-N',
-        blueCornerName: 'Mike Breeden',
-        blueCornerPhoto: 'https://dmxg5wxfqgb4u.cloudfront.net/styles/event_fight_card_upper_body_of_standing_athlete/s3/2021-10/71643%252Fprofile-galery%252Ffullbodyright-picture%252FBREEDEN_MIKE_R_10-02.png?itok=LGJ0_6jV',
+        redCornerFighter: 'Natan Levy',
+        blueCornerFighter: 'Mike Breeden',
       },
       {
-        redCornerName: 'Gina Mazany',
-        redCornerPhoto: 'https://dmxg5wxfqgb4u.cloudfront.net/styles/event_fight_card_upper_body_of_standing_athlete/s3/2022-04/b411a4b0-8007-47f9-8ac7-dcb6a3adbb89%252FMAZANY_GINA_L_04-30.png?itok=__QJfGLf',
-        blueCornerName: 'Shanna Young',
-        blueCornerPhoto: 'https://dmxg5wxfqgb4u.cloudfront.net/styles/event_fight_card_upper_body_of_standing_athlete/s3/2021-10/69253%252Fprofile-galery%252Ffullbodyright-picture%252FYOUNG_SHANNA_R_10-02.png?itok=BfTSd1HI',
+        redCornerFighter: 'Gina Mazany',
+        blueCornerFighter: 'Shanna Young',
       },
       {
-        redCornerName: 'Tatsuro Taira',
-        redCornerPhoto: 'https://dmxg5wxfqgb4u.cloudfront.net/styles/event_fight_card_upper_body_of_standing_athlete/s3/2022-04/b723de70-8e89-4aca-b168-65919326693f%252FTAIRA_TATSURO_L_04-30.png?itok=_syVNT41',
-        blueCornerName: 'Carlos Candelario',
-        blueCornerPhoto: 'https://dmxg5wxfqgb4u.cloudfront.net/styles/event_fight_card_upper_body_of_standing_athlete/s3/2022-04/00728940-803a-49cf-abfc-268cbba2fd63%252FCANDELARIO_CARLOS_R_04-30.png?itok=WXr3jjGD',
+        redCornerFighter: 'Tatsuro Taira',
+        blueCornerFighter: 'Carlos Candelario',
       },
     ],
   };
@@ -104,46 +80,34 @@ describe('Tests helper functions', () => {
   });
 
   describe('Tests populateDatabase function', () => {
-    beforeEach(() => {
-      Sinon.stub(process, 'exit').resolves();
-    });
-
-    afterEach(() => {
-      Sinon.restore();
-    });
-
-    it('Tests helperFunction.scrapeFights() and helperFunction.scrapeFightsCard(fights) are called', async () => {
-      Sinon.stub(FightsCardService, 'create').resolves();
-      Sinon.stub(FightService, 'create').resolves();
-
-      const scrapeFightsStub = Sinon.stub(helperFunction, 'scrapeFights').resolves([fightMock]);
+    it('Tests if function calls methods accordingly', async () => {
+      const deleteEventsStub = Sinon.stub(eventService, 'deleteMany');
+      const deleteFightsCardStub = Sinon.stub(fightsCardService, 'deleteMany');
+      
+      const scrapeFightsStub = Sinon.stub(helperFunction, 'scrapeEvents').resolves([eventMock]);
       const scrapeFightsCardStub = Sinon.stub(helperFunction, 'scrapeFightsCard').resolves([fightsCardMock]);
 
+      const createEventsStub = Sinon.stub(eventService, 'create').resolves();
+      const createFightsCardStub = Sinon.stub(fightsCardService, 'create').resolves();
+
       await populateDatabase();
+      Sinon.assert.calledOnce(deleteEventsStub);
+      Sinon.assert.calledOnce(deleteFightsCardStub);
       Sinon.assert.calledOnce(scrapeFightsStub);
-      Sinon.assert.calledWith(scrapeFightsCardStub, [fightMock]);
-    });
-
-    it('Tests FightsCardService.create() and FightService.create() are called with expected values', async () => {
-      Sinon.stub(helperFunction, 'scrapeFights').resolves([fightMock]);
-      Sinon.stub(helperFunction, 'scrapeFightsCard').resolves([fightsCardMock]);
-
-      const fightsCardCreate = Sinon.stub(FightsCardService, 'create').resolves();
-      const fightsCreate = Sinon.stub(FightService, 'create').resolves();
-
-      await populateDatabase();
-      Sinon.assert.calledOnceWithExactly(fightsCardCreate, [fightsCardMock]);
-      Sinon.assert.calledOnceWithExactly(fightsCreate, [fightMock]);
+      Sinon.assert.calledWith(createEventsStub, [eventMock]);
+      Sinon.assert.calledWith(scrapeFightsCardStub, [eventMock]);
+      Sinon.assert.calledWith(createFightsCardStub, [fightsCardMock]);
     });
   });
 
-  describe('Tests scrapeFights function', () => {
-    it('Returns array of fights', async () => {
+  describe('Tests scrapeEvents function', () => {
+    it('Returns array with 4 events', async () => {
       const axiosStub = Sinon.stub(axios, 'get').resolves({ data: htmlPageMock });
-      const fights = await helperFunction.scrapeFights();
+      const fights = await helperFunction.scrapeEvents();
       Sinon.assert.calledOnceWithExactly(axiosStub, 'https://www.ufc.com.br/events');
       expect(fights.length).to.be.equal(4);
-      fights.forEach((fight: IFight) => {
+      fights.forEach((fight: IEvent) => {
+        expect(fight).to.have.property('_id');
         expect(fight).to.have.property('title');
         expect(fight).to.have.property('url');
         expect(fight).to.have.property('date');
@@ -156,21 +120,19 @@ describe('Tests helper functions', () => {
   describe('Tests scrapeFightsCard function', () => {
     it('Returns array of fightsCard', async () => {
       const axiosStub = Sinon.stub(axios, 'get').resolves({ data: htmlCardsPageMock });
-      const fightsCard = await helperFunction.scrapeFightsCard([fightMock]);
+      const fightsCard = await helperFunction.scrapeFightsCard([eventMock]);
 
-      fightsCard.forEach((fight: FightCard) => {
-        const { url } = fightMock;
+      fightsCard.forEach((fight: IFightCard) => {
+        const { url } = eventMock;
         Sinon.assert.calledOnceWithExactly(axiosStub, url);
-        expect(fight).to.have.property('fight');
-        expect(fight.fight).to.equal(fightMock._id);
-        expect(fight).to.have.property('card');
-        expect(fight.card).to.be.an('array');
-        fight.card.forEach((card: Card, index) => {
-          expect(card).to.have.property('redCornerName');
-          expect(card).to.have.property('redCornerPhoto');
-          expect(card).to.have.property('blueCornerName');
-          expect(card).to.have.property('blueCornerPhoto');
-          expect(card).to.deep.equal(fightsCardMock.card[index]);
+        expect(fight).to.have.property('event');
+        expect(fight.event).to.equal(eventMock._id);
+        expect(fight).to.have.property('fights');
+        expect(fight.fights).to.be.an('array');
+        fight.fights.forEach((card: IFight, index) => {
+          expect(card).to.have.property('redCornerFighter');
+          expect(card).to.have.property('blueCornerFighter');
+          expect(card).to.deep.equal(fightsCardMock.fights[index]);
         });
       });
     });

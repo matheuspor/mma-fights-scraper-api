@@ -1,11 +1,11 @@
 import { expect } from 'chai';
 import mongoose from 'mongoose';
 import Sinon from 'sinon';
-import { IFight } from '../../../interfaces';
-import Fight from '../../../models/fight';
+import { IEvent } from '../../../interfaces';
+import Event from '../../../models/events';
 
-describe('Tests Fight Model', () => {
-  const fightMock: IFight = {
+describe('Tests Event Model', () => {
+  const eventMock: IEvent = {
     _id: 1,
     title: 'fight title',
     url: 'fightUrl',
@@ -20,24 +20,24 @@ describe('Tests Fight Model', () => {
   describe('Testing delete many method', () => {
     it('Test method is called inside model', async () => {
       Sinon.stub(mongoose.Model, 'deleteMany').resolves();
-      const model = await Fight.deleteMany();
+      const model = await Event.deleteMany();
       expect(model).to.be.equal(undefined);
     });
   });
 
   describe('Testing insert many method', () => {
     it('Test method is called inside model', async () => {
-      Sinon.stub(mongoose.Model, 'insertMany').resolves([fightMock]);
-      const model = await Fight.insertMany([fightMock]);
-      expect(model).to.be.deep.equal([fightMock]);
+      Sinon.stub(mongoose.Model, 'insertMany').resolves([eventMock]);
+      const model = await Event.insertMany([eventMock]);
+      expect(model).to.be.deep.equal([eventMock]);
     });
   });
 
   describe('Testing find method', () => {
     it('Test method is called inside model', async () => {
-      const findStub = Sinon.stub(mongoose.Model, 'find').resolves([fightMock]);
-      const model = await Fight.find({}, { _id: 0, __v: 0 });
-      expect(model).to.be.deep.equal([fightMock]);
+      const findStub = Sinon.stub(mongoose.Model, 'find').resolves([eventMock]);
+      const model = await Event.find({}, { _id: 0, __v: 0 });
+      expect(model).to.be.deep.equal([eventMock]);
       Sinon.assert.called(findStub);
     });
   });

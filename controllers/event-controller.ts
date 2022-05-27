@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
-import * as fightService from '../services/fight-service';
+import * as eventService from '../services/event-service';
 
 // eslint-disable-next-line import/prefer-default-export
 export const getAll = async (_req: Request, res: Response) => {
-  const fights = await fightService.getAll();
-  return res.status(200).json(fights);    
+  const events = await eventService.getAll();
+  return res.status(200).json(events);    
 };

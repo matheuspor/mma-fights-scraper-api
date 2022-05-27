@@ -1,16 +1,14 @@
 import { expect } from 'chai';
 import mongoose from 'mongoose';
 import sinon from 'sinon';
-import { FightCard } from '../../../interfaces';
+import { IFightCard } from '../../../interfaces';
 import { getAll, create, deleteMany } from '../../../services/fights-card-service';
 
-const fightsCardMock: FightCard = {
-  fight: 1,
-  card: [{
-    redCornerName: 'redCornerName',
-    redCornerPhoto: 'redCornerUrl',
-    blueCornerName: 'blueCornerName',
-    blueCornerPhoto: 'blueCornerUrl',
+const fightsCardMock: IFightCard = {
+  event: 1,
+  fights: [{
+    redCornerFighter: 'redCornerName',
+    blueCornerFighter: 'blueCornerName',
   }],
 };
 

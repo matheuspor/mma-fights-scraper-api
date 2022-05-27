@@ -1,9 +1,9 @@
 import express from 'express';
 import 'dotenv/config';
-import fightsRoutes from './routes/fights-routes';
 import fightsCardRoutes from './routes/fights-card-routes';
 import connectToDatabase from './models/connectToDatabase';
 import populateDatabase from './helper-function/populate-database';
+import eventsRoutes from './routes/events-routes';
 
 const app = express();
 app.disable('x-powered-by');
@@ -31,7 +31,7 @@ app.use(async (_req, _res, next) => {
   next();
 });
 
-app.use('/api', fightsRoutes);
+app.use('/api', eventsRoutes);
 app.use('/api', fightsCardRoutes);
 
 export default app;
