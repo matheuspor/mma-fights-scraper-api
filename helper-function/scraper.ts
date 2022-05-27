@@ -22,7 +22,7 @@ export const scrapeFights = async () => {
     const fightNight = url.includes('fight-night');
 
     fights.push({
-      _id: index,
+      _id: index + 1,
       title,
       url,
       date,
