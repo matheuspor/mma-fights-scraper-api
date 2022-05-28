@@ -1,24 +1,14 @@
 import { scrapeEvents, scrapeFightsCard } from './scraper';
 import * as eventService from '../services/event-service';
-import * as FightsCardService from '../services/fights-card-service';
+import * as fightsCardService from '../services/fights-card-service';
 
 const populateDatabase = async () => {  
   console.log('populating...');
   const events = await scrapeEvents();
+  const eventsFights = await scrapeFightsCard(events);
 
-  await Promise.all([eventService.deleteMany(), FightsCardService.deleteMany()])
-    .then(() => {
-      eventService.create(events);
-      return scrapeFightsCard(events);
-    })
-    .then((fights) => FightsCardService.create(fights));
-
-  // await Promise.all(
-  //   [
-  //     eventService.create(events),
-  //     scrapeFightsCard(events),
-  //   ],
-  // ).then((values) => FightsCardService.create(values[1]));
+  return Promise.all([eventService.deleteMany(), fightsCardService.deleteMany()])
+    .then(() => Promise.all([eventService.create(events), fightsCardService.create(eventsFights)]));
 };
 
 export default populateDatabase;
