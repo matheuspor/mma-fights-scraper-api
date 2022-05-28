@@ -41,7 +41,7 @@
   ```bash
   GET https://mma-fights-scraper-api.herokuapp.com/api/events
   ```  
-  <p> <em> Output </em> </p>
+  <p> <em> Response: </em> </p>
 
 ```bash
 [ {
@@ -63,7 +63,7 @@
   GET https://mma-fights-scraper-api.herokuapp.com/api/fights-card
   ``` 
   
-  <p> <em> Output </em> </p>
+  <p> <em> Response: </em> </p>
 
 ```bash
 [ {
@@ -92,7 +92,7 @@
   GET https://mma-fights-scraper-api.herokuapp.com/api/fights-card/1
   ``` 
   
-  <p> <em> Output </em> </p>
+  <p> <em> Response: </em> </p>
 
 ```bash
 {
@@ -113,7 +113,7 @@
 
 ## Run Locally
 
-This project runs by default on "http://localhost:3001" and connects to a MongoDB Docker container in "mongodb://mongodb:27017". <br>
+This project runs by default on "http://localhost:3001" and connects to a MongoDB Docker container in "mongodb://mongodb:27017"<br>
 Fill the empty .env variables if using custom port or custom mongodb connection.
 
 Starts server
