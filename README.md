@@ -22,7 +22,7 @@
 ## About 
 
   <p align="center">   
-  ⚒️REST API built with Typescript, Express, Cheerio and MongoDB. <br>
+  ⚒️REST API built with Typescript, Express, Cheerio and Mongoose. <br>
   Scrapes UFC events schedule page, saves data as a MongoDB collection and serves in its endpoints.
   </p>
 
@@ -114,26 +114,25 @@
 ## Run Locally
 
 This project runs by default on "http://localhost:3001" and connects to a MongoDB Docker container in "mongodb://mongodb:27017"<br>
-Fill the empty .env variables if using custom port or custom mongodb connection.
+Fill the empty .env variables if using custom port and/or custom mongodb connection.
 
-Starts server
-
+Build containers and start server
 ```bash
+# Install docker-compose if not already: "https://docs.docker.com/compose/install/"
+
 # Clone repo
 $ git clone https://github.com/matheuspor/mma-fights-scraper-api
 
-# Starts api and mongodb as a Docker container
+# Build containers and start api
 $ npm run compose-up
 ```
 
 Run Test suite
-
 ```bash
 $ npm run test
 ```
 
 Run Test coverage
-
 ```bash
 $ npm run test:coverage
 ```
