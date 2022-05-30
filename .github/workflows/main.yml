@@ -4,7 +4,7 @@ on:
     branches: [main]
 
   pull_request:
-    branches: '*' 
+    branches: ['*']
 
 jobs:
   lint:
@@ -39,6 +39,10 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 14
+          cache: 'npm'
+
+      - name: Run MongoDB container for Testing
+        run: docker run -d --name mongodb -p 27017:27017 mongo
 
       - name: Run Tests
-        run: npm test
+        run: npm run mocha-tests
