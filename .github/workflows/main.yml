@@ -54,9 +54,12 @@ jobs:
       - name: Run Coverage
         run: npm run mocha-tests:coverage
         
+      - name: Print Report
+        run: npx nyc --reporter lcov --reporter text --report-dir .nyc_coverage report
+        
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v3
         with:
-          files: .nyc_output/**
+          files: .nyc_coverage/lcov.info
 
 
