@@ -30,6 +30,8 @@ jobs:
     name: Tests
     needs: lint
     runs-on: ubuntu-20.04
+    env:
+      MONGO_DB_URL: ${{ secrets.MONGO_DB_URL }}    
 
     steps:
       - name: Checkout Source Files
