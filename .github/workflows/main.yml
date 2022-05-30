@@ -40,6 +40,9 @@ jobs:
         with:
           node-version: 14
 
+      - name: Install Dependencies
+        run: npm install
+
       - name: Run MongoDB container for Testing
         run: docker run -d --name mongodb -p 27017:27017 mongo
 
