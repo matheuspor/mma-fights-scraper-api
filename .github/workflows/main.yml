@@ -51,6 +51,9 @@ jobs:
       - name: Run Tests
         run: npm run mocha-tests
         
-      - name: Upload to Codecov
+      - name: Run Coverage
+        run: npm run mocha-tests:coverage
+        
+      - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v3
 
