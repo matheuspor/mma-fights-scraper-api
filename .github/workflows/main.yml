@@ -50,3 +50,7 @@ jobs:
 
       - name: Run Tests
         run: npm run mocha-tests
+        
+      - name: Upload to Codecov
+        uses: codecov/codecov-action@v2
+
