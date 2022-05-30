@@ -12,8 +12,7 @@
     "mocha-tests": "mocha -r ts-node/register \"tests/**/*.test.ts\" --exit -t 60000",
     "mocha-tests:coverage": "nyc npm run mocha-tests",
     "test": "docker-compose run --rm app npm run mocha-tests",
-    "test:coverage": "docker-compose run --rm app npm run mocha-tests:coverage",
-    "test:report": "nyc --reporter lcov --reporter text --report-dir .nyc_coverage report"
+    "test:coverage": "docker-compose run --rm app npm run mocha-tests:coverage"
   },
   "author": "",
   "license": "ISC",
