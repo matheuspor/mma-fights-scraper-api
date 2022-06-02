@@ -1,7 +1,7 @@
 <h1 align="center">
   🥊MMA Fights Scraper API
 </h1>
-<p align="center">🤼‍ Scrapes upcoming fights schedule from the official <a href="https://www.ufc.com/events">UFC Events</a> page and returns data in JSON format </p>
+<p align="center">🤼‍ Scrapes upcoming fights schedule and serves data in JSON format </p>
 
 <div align="center">
   
@@ -24,7 +24,7 @@
 
   <p align="center">   
   ⚒️REST API built with Typescript, Express, Cheerio and Mongoose. <br>
-  Scrapes UFC events schedule page, saves data as a MongoDB collection and serves in its endpoints.
+  Scrapes <a href="https://www.ufc.com/events">UFC Events</a> pages to get every fight from each event, saves data as a MongoDB collection and serves in its endpoints.
   </p>
 
 ## Api Docs
@@ -56,7 +56,7 @@
 ```
 ---
 
-  <h3> Get list of upcoming events with the event fights </h3>
+  <h3> Get list of upcoming events with all fights in the event </h3>
   
   <p> Example Request: <p>
   
@@ -85,7 +85,7 @@
 
 ---
 
-  <h3> Get event with fights by event _id </h3>
+  ### Get one event with all fights by event `_id`
   
   <p> Example Request: <p>
   
