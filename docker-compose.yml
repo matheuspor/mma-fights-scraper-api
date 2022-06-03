@@ -3,17 +3,13 @@ version: '3.9'
 services:
   app:
     build:
-      context: ./
-      dockerfile: Dockerfile
-    volumes:
-      - app:/home/node/app
+      context: .
     depends_on:
       - mongodb
     env_file:
       - .env
     ports:
       - 3001:3001
-    working_dir: /
 
   mongodb:
     image: mongo:5.0
@@ -24,6 +20,6 @@ services:
     ports:
       - 27017:27017
     restart: 'always'
+
 volumes:
-  app:
-  mongodb:  
+  mongodb:
