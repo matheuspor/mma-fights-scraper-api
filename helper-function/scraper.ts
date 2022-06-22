@@ -45,7 +45,7 @@ export const scrapeEvents = async () => {
   return fights
 }
 
-export const scrapeFightsCard = async () => {
+export const scrapeEventsFights = async () => {
   const fightCard: IFightCard[] = []
   const fightsUrl = await scrapeEventsUrl()
   
