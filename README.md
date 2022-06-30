@@ -6,9 +6,9 @@
 <div align="center">
   
   <a href="">![Repository license](https://img.shields.io/github/license/matheuspor/mma-fights-scraper-api)</a>
-  <a href="">![GitHub workflow status](https://img.shields.io/github/checks-status/matheuspor/mma-fights-scraper-api/main)</a>
+  <a href="">![GitHub workflow status](https://img.shields.io/github/checks-status/matheuspor/mmafightsscraperapi/main)</a>
   <a href="">![Repository top language](https://img.shields.io/github/languages/top/matheuspor/mma-fights-scraper-api)</a>
-  <a href="">![Test-coverage](https://img.shields.io/codecov/c/github/matheuspor/mma-fights-scraper-api?style=plastic)</a>
+  <a href="">![Test-coverage](https://img.shields.io/codecov/c/github/matheuspor/mmafightsscraperapi?style=plastic)</a>
   <a href="">[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=matheuspor_mma-fights-web-scraper&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=matheuspor_mma-fights-web-scraper)</a>
   
 </div>
