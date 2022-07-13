@@ -19,7 +19,7 @@ describe('Tests Event Service', () => {
 
   describe('Tests getAll function', () => {
     it('Test getAll returns an array of events', async () => {
-      const findStub = Sinon.stub(mongoose.Model, 'find').returns([eventMock] as any);
+      const findStub = Sinon.stub(mongoose.Model, 'find').returns({ sort: Sinon.stub().returns([eventMock]) } as any);
 
       const model = await getAll();
 
