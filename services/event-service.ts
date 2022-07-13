@@ -7,4 +7,5 @@ export const create = (fights: IEvent[]): Promise<IEvent[]> => (
   Event.create(fights)
 );
 
-export const getAll = async (): Promise<IEvent[]> => Event.find({}, { __v: 0 });
+export const getAll = async (): Promise<IEvent[]> => Event.find({}, { __v: 0 })
+  .sort({ date: 1 });
