@@ -20,15 +20,18 @@ export const scrapeEvents = async () => {
     const title = $(element).children('.c-card-event--result__headline').text()
     const url = mainUrl + $(fightDetails).attr('href')
     const fightNight = url.includes('fight-night')
+    const lastFightDate = fights.length ? fights[fights.length - 1].date : 0
 
-    fights.push({
-      _id: index + 1,
-      title,
-      url,
-      date,
-      time,
-      fightNight,
-    })
+    if (date > lastFightDate) {
+      fights.push({
+        _id: index + 1,
+        title,
+        url,
+        date,
+        time,
+        fightNight,
+      })
+    }
     if (fights.length === 4) return false
   })
   return fights

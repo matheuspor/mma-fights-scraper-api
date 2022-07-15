@@ -18,7 +18,7 @@ describe('Tests GET /api/fights-card route', () => {
     .then((res) => {
       expect(res.status).to.be.equal(200)
       expect(res.body).to.be.an('array')
-      expect(res.body.length).to.be.equal(4)
+      expect(res.body.length).to.be.lessThanOrEqual(4)
       res.body.forEach((fightCard: IFightCard) => {
         expect(fightCard).to.have.property('event')
         expect(fightCard).to.have.property('fights')
