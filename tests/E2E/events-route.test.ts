@@ -8,7 +8,7 @@ chai.use(chaiHttp)
 const { expect } = chai
 
 describe('Tests GET /api/events route', () => {
-  it('Return status 200 with an array containing all 4 events', async () => chai
+  it('Return status 200 with an array containing all max 4 events', async () => chai
     .request(app)
     .get('/api/events')
     .then((res) => {

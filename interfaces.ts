@@ -1,3 +1,5 @@
+import { Request } from 'express'
+
 export interface IEvent {
   _id: number,
   title: string,
@@ -8,7 +10,7 @@ export interface IEvent {
 }
 
 export interface IFightCard {
-  event: number | IEvent,
+  event: number,
   fights: IFight[]
 }
 
@@ -21,3 +23,8 @@ export interface IBlueCornerFighter {
 }
 
 export interface IFight extends IRedCornerFighter, IBlueCornerFighter { }
+
+export interface ExtendedRequest extends Request {
+  events?: IEvent[],
+  eventsFights?: IFightCard[]
+}
