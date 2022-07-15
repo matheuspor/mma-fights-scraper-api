@@ -30,8 +30,6 @@ jobs:
     name: Tests
     needs: lint
     runs-on: ubuntu-20.04
-    env:
-      MONGO_DB_URL: ${{ secrets.MONGO_DB_URL }}    
 
     steps:
       - name: Checkout Source Files
@@ -44,9 +42,6 @@ jobs:
 
       - name: Install Dependencies
         run: npm install
-
-      - name: Run MongoDB container for Testing
-        run: docker run -d --name mongodb -p 27017:27017 mongo
 
       - name: Run Tests
         run: npm run mocha-tests

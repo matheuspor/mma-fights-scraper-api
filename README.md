@@ -23,8 +23,8 @@
 ## About 
 
   <p align="center">   
-  ⚒️REST API built with Typescript, Express, Cheerio and Mongoose. <br>
-  Scrapes <a href="https://www.ufc.com/events">UFC Events</a> pages to get every fight from each event, saves data as a MongoDB collection and serves in its endpoints.
+  ⚒️REST API built with Typescript, Express, Cheerio. <br>
+  Scrapes <a href="https://www.ufc.com/events">UFC Events</a> pages to get every fight from each event and serves in its endpoints.
   </p>
 
 ## Api Docs
@@ -114,8 +114,8 @@
 
 ## Run Locally
 
-This project runs by default on "http://localhost:3001" and connects to a MongoDB Docker container in "mongodb://mongodb:27017"<br>
-Fill the empty .env variables if using custom port and/or custom mongodb connection.
+This project runs by default on "http://localhost:3001"<br>
+Fill the empty .env if using custom port.
 
 Build containers and start server
 ```bash
