@@ -1,8 +1,8 @@
-import { Router } from 'express';
-import { getAll } from '../controllers/event-controller';
+import { Router } from 'express'
+import { getAll } from '../controllers/event-controller'
 
-const eventsRoutes = Router();
+const eventsRoutes = Router()
 
-eventsRoutes.get('/events', getAll);
+eventsRoutes.get('/events', getAll)
 
-export default eventsRoutes;
+export default eventsRoutes

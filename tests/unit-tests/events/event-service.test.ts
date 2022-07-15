@@ -1,8 +1,8 @@
-import { expect } from 'chai';
-import mongoose from 'mongoose';
-import Sinon from 'sinon';
-import { IEvent } from '../../../interfaces';
-import { getAll } from '../../../services/event-service';
+import { expect } from 'chai'
+import mongoose from 'mongoose'
+import Sinon from 'sinon'
+import { IEvent } from '../../../interfaces'
+import { getAll } from '../../../services/event-service'
 
 describe('Tests Event Service', () => {
   const eventMock: IEvent = {
@@ -12,20 +12,20 @@ describe('Tests Event Service', () => {
     date: new Date(),
     time: 'fightTime',
     fightNight: true,
-  };
+  }
   beforeEach(() => {
-    Sinon.restore();
-  });
+    Sinon.restore()
+  })
 
   describe('Tests getAll function', () => {
     it('Test getAll returns an array of events', async () => {
-      const findStub = Sinon.stub(mongoose.Model, 'find').returns({ sort: Sinon.stub().returns([eventMock]) } as any);
+      const findStub = Sinon.stub(mongoose.Model, 'find').returns({ sort: Sinon.stub().returns([eventMock]) } as any)
 
-      const model = await getAll();
+      const model = await getAll()
 
-      Sinon.assert.calledWith(findStub, {}, { __v: 0 });
-      expect(model).to.be.an('array');
-      expect(model).to.be.deep.equal([eventMock]);
-    });
-  });
-});
+      Sinon.assert.calledWith(findStub, {}, { __v: 0 })
+      expect(model).to.be.an('array')
+      expect(model).to.be.deep.equal([eventMock])
+    })
+  })
+})

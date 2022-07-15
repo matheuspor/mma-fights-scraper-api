@@ -1,9 +1,9 @@
-import { Router } from 'express';
-import { getAll, getById } from '../controllers/fights-card-controller';
+import { Router } from 'express'
+import { getAll, getById } from '../controllers/fights-card-controller'
 
-const fightsCardRoutes = Router();
+const fightsCardRoutes = Router()
 
-fightsCardRoutes.get('/fights-card', getAll);
-fightsCardRoutes.get('/fights-card/:id', getById);
+fightsCardRoutes.get('/fights-card', getAll)
+fightsCardRoutes.get('/fights-card/:id', getById)
 
-export default fightsCardRoutes;
+export default fightsCardRoutes

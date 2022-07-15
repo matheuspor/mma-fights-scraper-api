@@ -1,5 +1,5 @@
-import { Schema, model } from 'mongoose';
-import { IEvent } from '../interfaces';
+import { Schema, model } from 'mongoose'
+import { IEvent } from '../interfaces'
 
 const EventSchema = new Schema<IEvent>({
   _id: Number,
@@ -8,8 +8,8 @@ const EventSchema = new Schema<IEvent>({
   date: Date,
   time: String,
   fightNight: Boolean,
-});
+})
 
-const Event = model<IEvent>('Event', EventSchema);
+const Event = model<IEvent>('Event', EventSchema)
 
-export default Event;
+export default Event
