@@ -7,20 +7,6 @@ const mainUrl = 'https://www.ufc.com'
 
 export const fetchPageHtml = (url: string) => axios.get(url)
   .then((response) => response.data)
-<<<<<<< HEAD
-=======
-
-const scrapeEventsUrl = async () => {
-  const html = await fetchPageHtml(eventsUrl)
-  const fightsUrl: string[] = []
-  const $ = cheerio.load(html)
-  $('.c-card-event--result__info', html).each((_index, element) => {
-    const fightDetails = $(element).children('.c-card-event--result__date').find('a')
-    if (fightsUrl.length < 4) fightsUrl.push(mainUrl + $(fightDetails).attr('href'))
-  })
-  return fightsUrl
-}
->>>>>>> 291ef94dda729d1eae3dc92818d5ff4ce60c8b1b
 
 export const scrapeEvents = async () => {
   const html = await fetchPageHtml(eventsUrl)
@@ -34,7 +20,6 @@ export const scrapeEvents = async () => {
     const title = $(element).children('.c-card-event--result__headline').text()
     const url = mainUrl + $(fightDetails).attr('href')
     const fightNight = url.includes('fight-night')
-<<<<<<< HEAD
     const lastFightDate = fights.length ? fights[fights.length - 1].date : 0
 
     if (date > lastFightDate) {
@@ -47,33 +32,14 @@ export const scrapeEvents = async () => {
         fightNight,
       })
     }
-=======
-
-    fights.push({
-      _id: index + 1,
-      title,
-      url,
-      date,
-      time,
-      fightNight,
-    })
->>>>>>> 291ef94dda729d1eae3dc92818d5ff4ce60c8b1b
     if (fights.length === 4) return false
   })
   return fights
 }
 
-<<<<<<< HEAD
-export const scrapeFightsCard = async (fights: IEvent[]) => {
+export const scrapeEventsFights = async (fights: IEvent[]) => {
   const fightCard: IFightCard[] = []
   await Promise.all(fights.map(async ({ url, _id }) => {
-=======
-export const scrapeEventsFights = async () => {
-  const fightCard: IFightCard[] = []
-  const fightsUrl = await scrapeEventsUrl()
-  
-  await Promise.all(fightsUrl.map(async (url, urlIndex) => {
->>>>>>> 291ef94dda729d1eae3dc92818d5ff4ce60c8b1b
     const redCornerFighterName: IRedCornerFighter[] = []
     const blueCornerFighterName: IBlueCornerFighter[] = []
     const html = await fetchPageHtml(url)
@@ -102,11 +68,7 @@ export const scrapeEventsFights = async () => {
     })
 
     // Push new object with the title fight and a card array with all fights in the same day 
-<<<<<<< HEAD
     fightCard.push({ event: _id, fights: mergedArrays })
-=======
-    fightCard.push({ event: urlIndex + 1, fights: mergedArrays })
->>>>>>> 291ef94dda729d1eae3dc92818d5ff4ce60c8b1b
   }))
   return fightCard
 }

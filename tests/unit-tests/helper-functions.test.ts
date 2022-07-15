@@ -83,7 +83,7 @@ describe('Tests helper functions', () => {
     it('Tests if function calls methods accordingly', async () => {
       const deleteEventsStub = Sinon.stub(eventService, 'deleteMany')
       const deleteFightsCardStub = Sinon.stub(fightsCardService, 'deleteMany')
-      
+
       const scrapeFightsStub = Sinon.stub(helperFunction, 'scrapeEvents').resolves([eventMock])
       const scrapeFightsCardStub = Sinon.stub(helperFunction, 'scrapeEventsFights').resolves([fightsCardMock])
 
@@ -120,7 +120,7 @@ describe('Tests helper functions', () => {
   describe('Tests scrapeEventsFights function', () => {
     it('Returns array of fightsCard', async () => {
       const axiosStub = Sinon.stub(axios, 'get').resolves({ data: htmlCardsPageMock })
-      const fightsCard = await helperFunction.scrapeEventsFights()
+      const fightsCard = await helperFunction.scrapeEventsFights([eventMock])
 
       fightsCard.forEach((fight: IFightCard) => {
         const { url } = eventMock
