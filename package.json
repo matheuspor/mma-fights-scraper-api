@@ -42,7 +42,6 @@
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-mocha": "9.0.0",
     "mocha": "9.2.1",
-    "nodemon": "^2.0.15",
     "nyc": "^15.1.0",
     "sinon": "13.0.1",
     "ts-node-dev": "^1.1.8",

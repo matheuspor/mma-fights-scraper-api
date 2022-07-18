@@ -32,9 +32,8 @@ export const scrapeEvents = async () => {
         fightNight,
       })
     }
-    if (fights.length === 4) return false
   })
-  return fights
+  return fights.splice(0, 4)
 }
 
 export const scrapeEventsFights = async (fights: IEvent[]) => {
@@ -45,7 +44,7 @@ export const scrapeEventsFights = async (fights: IEvent[]) => {
     const html = await fetchPageHtml(url)
     const $ = cheerio.load(html)
 
-    // Reads page left side scraping the red corner fighters data (name and photo)
+    // Reads page left side scraping the red corner fighter name
     $('.c-listing-fight__corner--red', html).each((_index, element) => {
       const fighterName = $(element).find('.c-listing-fight__corner-name').text()
       const trimmedFighterName = fighterName.split(' ').filter((name) => (name !== '\n' && name !== ''))
@@ -53,7 +52,7 @@ export const scrapeEventsFights = async (fights: IEvent[]) => {
       redCornerFighterName.push({ redCornerFighter: `${fighterFullName}` })
     })
 
-    // Reads page right side scraping the blue corner fighters data (name and photo)
+    // Reads page right side scraping the blue corner fighter name
     $('.c-listing-fight__corner--blue', html).each((_index, element) => {
       const fighterName = $(element).find('.c-listing-fight__corner-name').text()
       const trimmedFighterName = fighterName.split(' ').filter((name) => (name !== '\n' && name !== ''))
@@ -68,7 +67,7 @@ export const scrapeEventsFights = async (fights: IEvent[]) => {
     })
 
     // Push new object with the title fight and a card array with all fights in the same day 
-    fightCard.push({ event: _id, fights: mergedArrays })
+    fightCard.push({ _id, fights: mergedArrays })
   }))
   return fightCard
 }
