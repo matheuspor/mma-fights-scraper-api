@@ -4,12 +4,12 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "compose-up": "docker-compose up -d --build",
-    "compose-down": "docker-compose down",
+    "compose:up": "docker-compose up -d --build",
+    "compose:down": "docker-compose down",
     "start": "ts-node app.ts",
     "dev": "ts-node-dev app.ts",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
-    "mocha-tests": "mocha -r ts-node/register \"tests/**/*.test.ts\" --exit -t 60000",
+    "mocha-tests": "mocha -r ts-node/register \"src/tests/**/*.test.ts\" --exit -t 60000",
     "mocha-tests:coverage": "nyc npm run mocha-tests",
     "test": "docker-compose run --rm app npm run mocha-tests",
     "test:coverage": "docker-compose run --rm app npm run mocha-tests:coverage"

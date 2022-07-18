@@ -5,8 +5,8 @@ import Sinon = require('sinon');
 import { IEvent, IFight, IFightCard } from '../../interfaces'
 import * as helperFunction from '../../scraper/helper'
 
-const htmlPageMock = JSON.parse(readFileSync('./tests/unit-tests/mocks/html-page-mock.json', 'utf8'))
-const htmlCardsPageMock = JSON.parse(readFileSync('./tests/unit-tests/mocks/html-fightCard-mock.json', 'utf8'))
+const htmlPageMock = JSON.parse(readFileSync('./src/tests/unit-tests/mocks/html-page-mock.json', 'utf8'))
+const htmlCardsPageMock = JSON.parse(readFileSync('./src/tests/unit-tests/mocks/html-fightCard-mock.json', 'utf8'))
 
 describe('Tests helper functions', () => {
   const eventMock: IEvent = {
