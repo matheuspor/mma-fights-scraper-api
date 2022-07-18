@@ -61,21 +61,14 @@
   <p> Example Request: <p>
   
   ```bash
-  GET https://mma-fights-scraper-api.herokuapp.com/api/fights-card
+  GET https://mma-fights-scraper-api.herokuapp.com/api/event-card
   ``` 
   
   <p> <em> Response: </em> </p>
 
 ```bash
 [ {
-"event": {
-  "_id": "...",
-  "title": "...",
-  "date": "...",
-  "fightNight": "...",
-  "time": "...",
-  "url": ""
-},
+"_id": '...',
 "fights": [ {
   "redCornerFighter": "...",
   "blueCornerFighter": "..."
@@ -90,21 +83,14 @@
   <p> Example Request: <p>
   
   ```bash
-  GET https://mma-fights-scraper-api.herokuapp.com/api/fights-card/1
+  GET https://mma-fights-scraper-api.herokuapp.com/api/event-card/1
   ``` 
   
   <p> <em> Response: </em> </p>
 
 ```bash
 {
-"event": {
-  "_id": "...",
-  "title": "...",
-  "date": "...",
-  "fightNight": "...",
-  "time": "...",
-  "url": ""
-},
+"_id": '...',
 "fights": [ {
   "redCornerFighter": "...",
   "blueCornerFighter": "..."

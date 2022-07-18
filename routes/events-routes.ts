@@ -1,10 +1,10 @@
 import { Router } from 'express'
-import { ExtendedRequest } from '../interfaces'
+import scrapedData from '../scraper/scraped-data'
 
 const eventsRoutes = Router()
 
-eventsRoutes.get('/events', (req: ExtendedRequest, res) => {
-  const { events } = req
+eventsRoutes.get('/events', (_req, res) => {
+  const { events } = scrapedData
   return res.status(200).json(events)
 })
 
