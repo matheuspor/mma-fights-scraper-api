@@ -21,3 +21,8 @@ export interface IBlueCornerFighter {
 }
 
 export interface IFight extends IRedCornerFighter, IBlueCornerFighter { }
+
+export interface IScrapedData {
+  events: IEvent[],
+  eventCard: IFightCard[]
+}

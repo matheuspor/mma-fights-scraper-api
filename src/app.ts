@@ -1,8 +1,7 @@
 import express from 'express'
 import 'dotenv/config'
-import eventsRoutes from './routes/events-routes'
-import eventCardRoutes from './routes/event-card-routes'
 import scrapedData from './scraper/scraped-data'
+import AppRouter from './routes/AppRouter'
 
 const app = express()
 app.disable('x-powered-by')
@@ -27,7 +26,8 @@ app.use(async (_req, _res, next) => {
   next()
 })
 
-app.use('/api', eventsRoutes)
-app.use('/api', eventCardRoutes)
+const ufcRoutes = new AppRouter(scrapedData.UFCData).router
+
+app.use('/api', ufcRoutes)
 
 export default app
