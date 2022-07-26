@@ -15,7 +15,7 @@ describe('Tests helper functions', () => {
     url: 'fightUrl',
     date: new Date(),
     time: 'fightTime',
-    fightNight: true,
+    event: 'UFC-FightNight',
   }
 
   const fightsCardMock: IFightCard = {
@@ -88,7 +88,7 @@ describe('Tests helper functions', () => {
         expect(fight).to.have.property('url')
         expect(fight).to.have.property('date')
         expect(fight).to.have.property('time')
-        expect(fight).to.have.property('fightNight')
+        expect(fight).to.have.property('event')
       })
     })
   })

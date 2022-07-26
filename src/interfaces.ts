@@ -4,7 +4,7 @@ export interface IEvent {
   url: string,
   date: Date,
   time: string,
-  fightNight: boolean
+  event: string
 }
 
 export interface IFightCard {

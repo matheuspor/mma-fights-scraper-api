@@ -15,11 +15,13 @@ export const scrapeEvents = async () => {
   $('.c-card-event--result__info', html).each((index, element) => {
     const fightDetails = $(element).children('.c-card-event--result__date').find('a')
     const dateString = $(fightDetails).text().split(' ')[0]
-    const date = new Date(`${dateString.split('.').slice(0, 2).reverse().join('.')}.${dateString.split('.').pop()}`)
+    const formattedDate = `${dateString.split('.').slice(0, 2).reverse().join('.')}.${dateString.split('.').pop()}`
+    const date = new Date(formattedDate)
     const time = `${$(fightDetails).text().split(' ')[2]} ${$(fightDetails).text().split(' ')[3]}`
     const title = $(element).children('.c-card-event--result__headline').text()
     const url = mainUrl + $(fightDetails).attr('href')
-    const fightNight = url.includes('fight-night')
+    const eventType = url.split('/')
+    const event = url.includes('fight-night') ? 'UFC-FightNight' : eventType[eventType.length - 1].toUpperCase()
     const lastFightDate = fights.length ? fights[fights.length - 1].date : 0
 
     if (date > lastFightDate) {
@@ -29,7 +31,7 @@ export const scrapeEvents = async () => {
         url,
         date,
         time,
-        fightNight,
+        event,
       })
     }
   })

@@ -21,7 +21,7 @@ describe('Tests GET /api/events route', () => {
         expect(fight).to.have.property('url')
         expect(fight).to.have.property('date')
         expect(fight).to.have.property('time')
-        expect(fight).to.have.property('fightNight')
+        expect(fight).to.have.property('event')
       })
     }))
 })
