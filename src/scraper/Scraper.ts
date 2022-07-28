@@ -2,13 +2,9 @@ import { IScrapedData } from '../interfaces'
 import { scrapeEvents, scrapeEventsFights } from './helper'
 
 export default class Scraper {
-  public UFCData: IScrapedData
-
-  constructor() {
-    this.UFCData = {
-      events: [],
-      eventCard: [],
-    }
+  public UFCData: IScrapedData = {
+    events: [],
+    eventCard: [],
   }
 
   public async setup(deployedDate: string) {
