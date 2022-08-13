@@ -1,14 +1,14 @@
 import chai from 'chai'
 import chaiHttp = require('chai-http');
 import app from '../../app'
-import { IFight, IFightCard } from '../../interfaces'
+import { IFight, IEventCard } from '../../interfaces'
 
 chai.use(chaiHttp)
 
 const { expect } = chai
 
-const isSorted = (arr: IFightCard[]) => arr
-  .every((key: IFightCard, index) => (index === 0 ? true
+const isSorted = (arr: IEventCard[]) => arr
+  .every((key: IEventCard, index) => (index === 0 ? true
     : (key._id) > (arr[index - 1]._id)))
 
 describe('Tests /api/event-card routes', () => {
@@ -20,10 +20,15 @@ describe('Tests /api/event-card routes', () => {
         expect(res.status).to.be.equal(200)
         expect(res.body).to.be.an('array')
         expect(res.body.length).to.be.lessThanOrEqual(4)
-        res.body.forEach((fightCard: IFightCard) => {
+        res.body.forEach((fightCard: IEventCard) => {
           expect(fightCard).to.have.property('_id')
-          expect(fightCard).to.have.property('fights')
-          fightCard.fights.forEach((card: IFight) => {
+          expect(fightCard).to.have.property('mainCard')
+          expect(fightCard).to.have.property('prelimsCard')
+          fightCard.mainCard.forEach((card: IFight) => {
+            expect(card).to.have.property('redCornerFighter')
+            expect(card).to.have.property('blueCornerFighter')
+          })
+          fightCard.prelimsCard.forEach((card: IFight) => {
             expect(card).to.have.property('redCornerFighter')
             expect(card).to.have.property('blueCornerFighter')
           })
@@ -47,8 +52,13 @@ describe('Tests /api/event-card routes', () => {
           expect(res.body).to.be.an('object')
           expect(res.body).to.have.property('_id')
           expect(res.body._id).to.equal(1)
-          expect(res.body).to.have.property('fights')
-          res.body.fights.forEach((card: IFight) => {
+          expect(res.body).to.have.property('mainCard')
+          expect(res.body).to.have.property('prelimsCard')
+          res.body.mainCard.forEach((card: IFight) => {
+            expect(card).to.have.property('redCornerFighter')
+            expect(card).to.have.property('blueCornerFighter')
+          })
+          res.body.prelimsCard.forEach((card: IFight) => {
             expect(card).to.have.property('redCornerFighter')
             expect(card).to.have.property('blueCornerFighter')
           })
