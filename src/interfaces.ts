@@ -7,9 +7,10 @@ export interface IEvent {
   event: string
 }
 
-export interface IFightCard {
+export interface IEventCard {
   _id: number,
-  fights: IFight[]
+  mainCard: IFight[],
+  prelimsCard: IFight[]
 }
 
 export interface IRedCornerFighter {
@@ -24,5 +25,5 @@ export interface IFight extends IRedCornerFighter, IBlueCornerFighter { }
 
 export interface IScrapedData {
   events: IEvent[],
-  eventCard: IFightCard[]
+  eventCard: IEventCard[]
 }

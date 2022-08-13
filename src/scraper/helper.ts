@@ -1,12 +1,22 @@
 import axios from 'axios'
 import * as cheerio from 'cheerio'
-import { IBlueCornerFighter, IFightCard, IEvent, IRedCornerFighter } from '../interfaces'
+import { IEvent, IEventCard, IFight } from '../interfaces'
 
 const eventsUrl = 'https://www.ufc.com.br/events'
 const mainUrl = 'https://www.ufc.com'
 
 export const fetchPageHtml = (url: string) => axios.get(url)
   .then((response) => response.data)
+
+const formatAndMergeFighters = (redCornerFighters: string, blueCornerFighters: string) => {
+  const mergedArrays: IFight[] = []
+  const formattedRedCornerArray = redCornerFighters.split(' ').filter((name) => (name !== '\n' && name !== '')).map((name) => name.replace(/\n/g, ''))
+  const formattedBlueCornerArray = blueCornerFighters.split(' ').filter((name) => (name !== '\n' && name !== '')).map((name) => name.replace(/\n/g, ''))
+  formattedRedCornerArray.forEach((name, index) => {
+    if (index % 2 === 0) mergedArrays.push({ redCornerFighter: `${name} ${formattedRedCornerArray[index + 1]}`, blueCornerFighter: `${formattedBlueCornerArray[index]} ${formattedBlueCornerArray[index + 1]}` })
+  })
+  return mergedArrays
+}
 
 export const scrapeEvents = async () => {
   const html = await fetchPageHtml(eventsUrl)
@@ -39,37 +49,25 @@ export const scrapeEvents = async () => {
 }
 
 export const scrapeEventsFights = async (fights: IEvent[]) => {
-  const fightCard: IFightCard[] = []
+  const fightCard: IEventCard[] = []
   await Promise.all(fights.map(async ({ url, _id }) => {
-    const redCornerFighterName: IRedCornerFighter[] = []
-    const blueCornerFighterName: IBlueCornerFighter[] = []
+    let mainCard: IFight[] = []
+    let prelimsCard: IFight[] = []
     const html = await fetchPageHtml(url)
     const $ = cheerio.load(html)
 
-    // Reads page left side scraping the red corner fighter name
-    $('.c-listing-fight__corner--red', html).each((_index, element) => {
-      const fighterName = $(element).find('.c-listing-fight__corner-name').text()
-      const trimmedFighterName = fighterName.split(' ').filter((name) => (name !== '\n' && name !== ''))
-      const fighterFullName = trimmedFighterName.map((name) => name.replace('\n', '')).join(' ')
-      redCornerFighterName.push({ redCornerFighter: `${fighterFullName}` })
+    $('.main-card', html).each((_index, element) => {
+      const redCornerFighters = $(element).find('.c-listing-fight__corner-name--red').text()
+      const blueCornerFighters = $(element).find('.c-listing-fight__corner-name--blue').text()
+      mainCard = formatAndMergeFighters(redCornerFighters, blueCornerFighters)
     })
 
-    // Reads page right side scraping the blue corner fighter name
-    $('.c-listing-fight__corner--blue', html).each((_index, element) => {
-      const fighterName = $(element).find('.c-listing-fight__corner-name').text()
-      const trimmedFighterName = fighterName.split(' ').filter((name) => (name !== '\n' && name !== ''))
-      const fighterFullName = trimmedFighterName.map((name) => name.replace('\n', '')).join(' ')
-      blueCornerFighterName.push({ blueCornerFighter: `${fighterFullName}` })
+    $('.fight-card-prelims', html).each((_index, element) => {
+      const redFighterName = $(element).find('.c-listing-fight__corner-name--red').text()
+      const blueFighterName = $(element).find('.c-listing-fight__corner-name--blue').text()
+      prelimsCard = formatAndMergeFighters(redFighterName, blueFighterName)
     })
-
-    // Merge both arrays of fighters data
-    const mergedArrays = redCornerFighterName.map(({ redCornerFighter }, index) => {
-      const { blueCornerFighter } = blueCornerFighterName[index]
-      return { redCornerFighter, blueCornerFighter }
-    })
-
-    // Push new object with the title fight and a card array with all fights in the same day 
-    fightCard.push({ _id, fights: mergedArrays })
+    fightCard.push({ _id, mainCard, prelimsCard })
   }))
   return fightCard
 }
