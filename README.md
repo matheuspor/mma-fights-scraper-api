@@ -68,12 +68,17 @@
 
 ```bash
 [ {
-"_id": '...',
-"fights": [ {
-  "redCornerFighter": "...",
-  "blueCornerFighter": "..."
- }. { ... } ],
-}, { ... } ]
+  "_id": '...',
+  "mainCard": [ {
+    "redCornerFighter": "...",
+    "blueCornerFighter": "..."
+  }. { ... } ],
+  "prelimsCard": [ {
+    "redCornerFighter": "...",
+    "blueCornerFighter": "..."
+  }, { ... } ],
+  }, 
+{ ... } ]
 ```
 
 ---
@@ -90,11 +95,15 @@
 
 ```bash
 {
-"_id": '...',
-"fights": [ {
-  "redCornerFighter": "...",
-  "blueCornerFighter": "..."
- }. { ... } ],
+  "_id": '...',
+  "mainCard": [ {
+    "redCornerFighter": "...",
+    "blueCornerFighter": "..."
+  }. { ... } ],
+  "prelimsCard": [ {
+    "redCornerFighter": "...",
+    "blueCornerFighter": "..."
+  }, { ... } ],
 }
 ```
 
