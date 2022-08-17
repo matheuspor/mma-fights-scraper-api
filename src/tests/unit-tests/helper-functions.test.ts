@@ -20,56 +20,22 @@ describe('Tests helper functions', () => {
 
   const fightsCardMock: IEventCard = {
     _id: 1,
-    mainCard: [
+    fights: [
       {
-        redCornerFighter: 'Rob Font',
-        blueCornerFighter: 'Marlon Vera',
+        redCornerFighter: 'Cory Sandhagen',
+        blueCornerFighter: 'Song Yadong',
       },
       {
-        redCornerFighter: 'Andrei Arlovski',
-        blueCornerFighter: 'Jake Collier',
+        redCornerFighter: 'Giga Chikadze',
+        blueCornerFighter: 'Sodiq Yusuff',
       },
       {
-        redCornerFighter: 'Andre Fili',
-        blueCornerFighter: 'Joanderson Brito',
+        redCornerFighter: 'Chidi Njokuani',
+        blueCornerFighter: 'Gregory Rodrigues',
       },
       {
-        redCornerFighter: 'Jared Gordon',
-        blueCornerFighter: 'Grant Dawson',
-      },
-      {
-        redCornerFighter: 'Darren Elkins',
-        blueCornerFighter: 'Tristan Connelly',
-      },
-      {
-        redCornerFighter: 'Krzysztof Jotko',
-        blueCornerFighter: 'Gerald Meerschaert',
-      },
-    ],
-    prelimsCard: [
-      {
-        redCornerFighter: 'Alexandr Romanov',
-        blueCornerFighter: 'Chase Sherman',
-      },
-      {
-        redCornerFighter: 'Daniel Lacerda',
-        blueCornerFighter: 'Francisco Figueiredo',
-      },
-      {
-        redCornerFighter: 'Gabriel Green',
-        blueCornerFighter: 'Yohan Lainesse Lainesse',
-      },
-      {
-        redCornerFighter: 'Natan Levy',
-        blueCornerFighter: 'Mike Breeden',
-      },
-      {
-        redCornerFighter: 'Gina Mazany',
-        blueCornerFighter: 'Shanna Young',
-      },
-      {
-        redCornerFighter: 'Tatsuro Taira',
-        blueCornerFighter: 'Carlos Candelario',
+        redCornerFighter: 'AndreFili',
+        blueCornerFighter: 'Lando Vannata',
       }],
   }
 
@@ -99,24 +65,16 @@ describe('Tests helper functions', () => {
       const axiosStub = Sinon.stub(axios, 'get').resolves({ data: htmlCardsPageMock })
       const fightsCard = await helperFunction.scrapeEventsFights([eventMock])
 
-      fightsCard.forEach((fight: IEventCard) => {
+      fightsCard.forEach((event: IEventCard) => {
         const { url } = eventMock
         Sinon.assert.calledOnceWithExactly(axiosStub, url)
-        expect(fight).to.have.property('_id')
-        expect(fight._id).to.equal(eventMock._id)
-        expect(fight).to.have.property('mainCard')
-        expect(fight).to.have.property('prelimsCard')
-        expect(fight.mainCard).to.be.an('array')
-        expect(fight.prelimsCard).to.be.an('array')
-        fight.mainCard.forEach((card: IFight, index) => {
+        expect(event).to.have.property('_id')
+        expect(event._id).to.equal(eventMock._id)
+        expect(event.fights).to.be.an('array')
+        event.fights.forEach((card: IFight, index) => {
           expect(card).to.have.property('redCornerFighter')
           expect(card).to.have.property('blueCornerFighter')
-          expect(card).to.deep.equal(fightsCardMock.mainCard[index])
-        })
-        fight.prelimsCard.forEach((card: IFight, index) => {
-          expect(card).to.have.property('redCornerFighter')
-          expect(card).to.have.property('blueCornerFighter')
-          expect(card).to.deep.equal(fightsCardMock.prelimsCard[index])
+          expect(card).to.deep.equal(fightsCardMock.fights[index])
         })
       })
     })
