@@ -9,8 +9,7 @@ export interface IEvent {
 
 export interface IEventCard {
   _id: number,
-  mainCard: IFight[],
-  prelimsCard: IFight[]
+  fights: IFight[]
 }
 
 export interface IRedCornerFighter {

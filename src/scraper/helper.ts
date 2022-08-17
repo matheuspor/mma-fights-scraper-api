@@ -1,21 +1,20 @@
 import axios from 'axios'
 import * as cheerio from 'cheerio'
+import fs from 'fs'
 import { IEvent, IEventCard, IFight } from '../interfaces'
 
 const eventsUrl = 'https://www.ufc.com.br/events'
 const mainUrl = 'https://www.ufc.com'
 
 export const fetchPageHtml = (url: string) => axios.get(url)
-  .then((response) => response.data)
-
-const formatAndMergeFighters = (redCornerFighters: string, blueCornerFighters: string) => {
-  const mergedArrays: IFight[] = []
-  const formattedRedCornerArray = redCornerFighters.split(' ').filter((name) => (name !== '\n' && name !== '')).map((name) => name.replace(/\n/g, ''))
-  const formattedBlueCornerArray = blueCornerFighters.split(' ').filter((name) => (name !== '\n' && name !== '')).map((name) => name.replace(/\n/g, ''))
-  formattedRedCornerArray.forEach((name, index) => {
-    if (index % 2 === 0) mergedArrays.push({ redCornerFighter: `${name} ${formattedRedCornerArray[index + 1]}`, blueCornerFighter: `${formattedBlueCornerArray[index]} ${formattedBlueCornerArray[index + 1]}` })
+  .then((response) => {
+    fs.writeFileSync('./src/tests/unit-tests/mocks/html-fightCard-mock.json', JSON.stringify(response.data))
+    return response.data
   })
-  return mergedArrays
+
+const formatFighterName = (name: string) => {
+  const formattedName = name.split(' ').filter((str) => (str !== '\n' && str !== '')).map((str) => str.replace(/\n/g, ''))
+  return formattedName.join(' ')
 }
 
 export const scrapeEvents = async () => {
@@ -48,26 +47,24 @@ export const scrapeEvents = async () => {
   return fights.splice(0, 4)
 }
 
-export const scrapeEventsFights = async (fights: IEvent[]) => {
+export const scrapeEventsFights = async (events: IEvent[]) => {
   const fightCard: IEventCard[] = []
-  await Promise.all(fights.map(async ({ url, _id }) => {
-    let mainCard: IFight[] = []
-    let prelimsCard: IFight[] = []
+  await Promise.all(events.map(async ({ url, _id }) => {
+    const fights: IFight[] = []
     const html = await fetchPageHtml(url)
     const $ = cheerio.load(html)
 
-    $('.main-card', html).each((_index, element) => {
-      const redCornerFighters = $(element).find('.c-listing-fight__corner-name--red').text()
-      const blueCornerFighters = $(element).find('.c-listing-fight__corner-name--blue').text()
-      mainCard = formatAndMergeFighters(redCornerFighters, blueCornerFighters)
+    $('.l-listing__item', html).each((_index, element) => {
+      const redCornerFighterText = $(element).find('.c-listing-fight__corner-name--red').text()
+      const blueCornerFighterText = $(element).find('.c-listing-fight__corner-name--blue').text()
+      const redCornerFighter = formatFighterName(redCornerFighterText)
+      const blueCornerFighter = formatFighterName(blueCornerFighterText)
+      fights.push({
+        redCornerFighter,
+        blueCornerFighter,
+      })
     })
-
-    $('.fight-card-prelims', html).each((_index, element) => {
-      const redFighterName = $(element).find('.c-listing-fight__corner-name--red').text()
-      const blueFighterName = $(element).find('.c-listing-fight__corner-name--blue').text()
-      prelimsCard = formatAndMergeFighters(redFighterName, blueFighterName)
-    })
-    fightCard.push({ _id, mainCard, prelimsCard })
+    fightCard.push({ _id, fights })
   }))
   return fightCard
 }
