@@ -1,16 +1,12 @@
 import axios from 'axios'
 import * as cheerio from 'cheerio'
-import fs from 'fs'
 import { IEvent, IEventCard, IFight } from '../interfaces'
 
 const eventsUrl = 'https://www.ufc.com.br/events'
 const mainUrl = 'https://www.ufc.com'
 
 export const fetchPageHtml = (url: string) => axios.get(url)
-  .then((response) => {
-    fs.writeFileSync('./src/tests/unit-tests/mocks/html-fightCard-mock.json', JSON.stringify(response.data))
-    return response.data
-  })
+  .then((response) => response.data)
 
 const formatFighterName = (name: string) => {
   const formattedName = name.split(' ').filter((str) => (str !== '\n' && str !== '')).map((str) => str.replace(/\n/g, ''))
