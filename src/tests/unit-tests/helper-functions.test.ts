@@ -44,7 +44,7 @@ describe('Tests helper functions', () => {
   })
 
   describe('Tests scrapeEvents function', () => {
-    it('Returns array with max 4 events', async () => {
+    it('Return array with max 4 events', async () => {
       const axiosStub = Sinon.stub(axios, 'get').resolves({ data: htmlPageMock })
       const fights = await helperFunction.scrapeEvents()
       Sinon.assert.calledOnceWithExactly(axiosStub, 'https://www.ufc.com.br/events')
@@ -61,7 +61,7 @@ describe('Tests helper functions', () => {
   })
 
   describe('Tests scrapeEventsFights function', () => {
-    it('Returns array of fightsCard', async () => {
+    it('Return array of fightsCard', async () => {
       const axiosStub = Sinon.stub(axios, 'get').resolves({ data: htmlCardsPageMock })
       const fightsCard = await helperFunction.scrapeEventsFights([eventMock])
 

@@ -13,7 +13,7 @@ const isSorted = (arr: IEventCard[]) => arr
 
 describe('Tests /api/event-card routes', () => {
   describe('Tests GET /api/event-card route', () => {
-    it('Returns an array containing max 4 fightsCard', async () => chai
+    it('Return an array containing max 4 fightsCard', async () => chai
       .request(app)
       .get('/api/event-card')
       .then((res) => {
@@ -39,7 +39,7 @@ describe('Tests /api/event-card routes', () => {
 
   describe('Tests GET /api/event-card/:id route', () => {
     describe('If id is valid', () => {
-      it('Returns event card with the given id', async () => chai
+      it('Return event card with the given id', async () => chai
         .request(app)
         .get('/api/event-card/1')
         .then((res) => {
@@ -54,7 +54,7 @@ describe('Tests /api/event-card routes', () => {
         }))
     })
     describe('If id is invalid', () => {
-      it('Returns empty object if _id does not exist', async () => chai
+      it('Return empty object if _id does not exist', async () => chai
         .request(app)
         .get('/api/event-card/5')
         .then((res) => {
