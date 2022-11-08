@@ -56,7 +56,7 @@
 ```
 ---
 
-  <h3> Get list of upcoming events with all fights in the event </h3>
+  <h3> Get list of upcoming events with all fights in the event sorted by fighting order </h3>
   
   <p> Example Request: <p>
   
