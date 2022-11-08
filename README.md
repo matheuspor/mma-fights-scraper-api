@@ -100,7 +100,7 @@
 
 ## Run Locally
 
-This project runs by default on "http://localhost:3001"<br>
+This project runs by default on `http://localhost:3001`<br>
 Fill the empty .env if using custom port.
 
 Build containers and start server
@@ -111,7 +111,7 @@ Build containers and start server
 $ git clone https://github.com/matheuspor/mma-fights-scraper-api
 
 # Build containers and start api
-$ npm run compose-up
+$ npm run compose:up
 ```
 
 Run Test suite
